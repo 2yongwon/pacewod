@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pace Calculator — PaceWOD</title>
+  <meta name="description" content="Calculate running pace per km and mile from distance and finish time. Get split times for 5K, 10K, half marathon, and more.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">Pace<span>WOD</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="pace-calculator.html" class="active">Pace Calculator</a></li>
+        <li><a href="zone2-calculator.html">Zone 2</a></li>
+        <li><a href="wod-generator.html">WOD Generator</a></li>
+        <li><a href="../blog/zone-2-running-guide.html">Blog</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>Pace Calculator</h1>
+        <p>Enter your distance and finish time to get pace per km, pace per mile, and projected split times.</p>
+      </div>
+
+      <div class="tool-layout">
+        <div class="tool-panel">
+          <h2>Input</h2>
+          <form id="pace-form">
+            <div class="form-group">
+              <label for="pace-distance">Distance (km)</label>
+              <input type="number" id="pace-distance" step="0.01" min="0.1" placeholder="e.g. 10" required>
+            </div>
+            <div class="form-group">
+              <label>Finish Time</label>
+              <div class="form-row">
+                <div>
+                  <input type="number" id="pace-hours" min="0" placeholder="Hr" value="0">
+                </div>
+                <div>
+                  <input type="number" id="pace-minutes" min="0" max="59" placeholder="Min" required>
+                </div>
+                <div>
+                  <input type="number" id="pace-seconds" min="0" max="59" placeholder="Sec" value="0">
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Calculate Pace</button>
+          </form>
+        </div>
+
+        <div class="tool-panel">
+          <h2>Results</h2>
+          <div id="pace-results" hidden>
+            <div class="result-grid">
+              <div class="result-item highlight">
+                <div class="value" id="pace-result-km">—</div>
+                <div class="label">Pace / km</div>
+              </div>
+              <div class="result-item">
+                <div class="value" id="pace-result-mile">—</div>
+                <div class="label">Pace / mile</div>
+              </div>
+              <div class="result-item">
+                <div class="value" id="pace-result-kmh">—</div>
+                <div class="label">km/h</div>
+              </div>
+              <div class="result-item">
+                <div class="value" id="pace-result-mph">—</div>
+                <div class="label">mph</div>
+              </div>
+            </div>
+            <h2 style="margin-top: 1.5rem;">Split Times</h2>
+            <div class="result-grid" id="pace-splits"></div>
+          </div>
+          <p id="pace-placeholder" style="color: var(--text-muted);">Enter your distance and time to see results.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2026 PaceWOD. Free tools for athletes.</p>
+      <ul class="footer-links">
+        <li><a href="pace-calculator.html">Tools</a></li>
+        <li><a href="../blog/zone-2-running-guide.html">Blog</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    document.getElementById("pace-form").addEventListener("submit", () => {
+      document.getElementById("pace-placeholder").hidden = true;
+    });
+  </script>
+</body>
+</html>

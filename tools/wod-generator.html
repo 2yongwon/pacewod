@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WOD Generator — PaceWOD</title>
+  <meta name="description" content="Generate random CrossFit workouts — AMRAP, EMOM, For Time, and Chipper formats with customizable equipment.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">Pace<span>WOD</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="pace-calculator.html">Pace Calculator</a></li>
+        <li><a href="zone2-calculator.html">Zone 2</a></li>
+        <li><a href="wod-generator.html" class="active">WOD Generator</a></li>
+        <li><a href="../blog/zone-2-running-guide.html">Blog</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>WOD Generator</h1>
+        <p>Pick your format, select available equipment, and get a random workout. Perfect for home gyms and daily training.</p>
+      </div>
+
+      <div class="tool-layout">
+        <div class="tool-panel">
+          <h2>Settings</h2>
+          <form id="wod-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="wod-format">Workout Format</label>
+              <select id="wod-format">
+                <option value="amrap">AMRAP</option>
+                <option value="fortime">For Time (Rounds)</option>
+                <option value="emom">EMOM</option>
+                <option value="chipper">Chipper</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="wod-duration">Duration / Rounds</label>
+                <input type="number" id="wod-duration" min="1" max="60" value="12">
+              </div>
+              <div class="form-group">
+                <label for="wod-movements-count">Movements</label>
+                <input type="number" id="wod-movements-count" min="2" max="8" value="4">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Equipment Available</label>
+              <div class="checkbox-group">
+                <label class="checkbox-pill"><input type="checkbox" name="wod-equipment" value="bodyweight" checked> Bodyweight</label>
+                <label class="checkbox-pill"><input type="checkbox" name="wod-equipment" value="barbell"> Barbell</label>
+                <label class="checkbox-pill"><input type="checkbox" name="wod-equipment" value="dumbbell"> Dumbbell</label>
+                <label class="checkbox-pill"><input type="checkbox" name="wod-equipment" value="cardio"> Cardio</label>
+                <label class="checkbox-pill"><input type="checkbox" name="wod-equipment" value="kettlebell"> Kettlebell</label>
+              </div>
+            </div>
+            <button type="button" id="wod-generate" class="btn btn-primary btn-block">Generate WOD</button>
+          </form>
+        </div>
+
+        <div class="tool-panel">
+          <h2>Your Workout</h2>
+          <div id="wod-results" hidden>
+            <div class="result-box">
+              <pre class="wod-output" id="wod-output-text"></pre>
+            </div>
+            <div id="wod-movement-list" style="margin-top: 1rem;"></div>
+          </div>
+          <p id="wod-placeholder" style="color: var(--text-muted);">Select equipment and hit Generate to get a workout.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2026 PaceWOD. Free tools for athletes.</p>
+      <ul class="footer-links">
+        <li><a href="wod-generator.html">Tools</a></li>
+        <li><a href="../blog/best-emom-workouts.html">Blog</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    document.getElementById("wod-generate").addEventListener("click", () => {
+      document.getElementById("wod-placeholder").hidden = true;
+    });
+  </script>
+</body>
+</html>
