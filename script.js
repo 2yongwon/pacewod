@@ -52,6 +52,94 @@
     return m + ":" + String(s).padStart(2, "0");
   }
 
+  function formatDuration(totalSeconds) {
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = Math.round(totalSeconds % 60);
+    if (h > 0) {
+      return h + ":" + String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+    }
+    return m + ":" + String(s).padStart(2, "0");
+  }
+
+  function parseTime(hoursId, minutesId, secondsId) {
+    const hours = parseInt(document.getElementById(hoursId).value, 10) || 0;
+    const minutes = parseInt(document.getElementById(minutesId).value, 10) || 0;
+    const seconds = parseInt(document.getElementById(secondsId).value, 10) || 0;
+    return hours * 3600 + minutes * 60 + seconds;
+  }
+
+  /* ── Pace Chart ── */
+  const chartBtn = document.getElementById("chart-lookup");
+  if (chartBtn) {
+    chartBtn.addEventListener("click", () => {
+      const race = document.getElementById("chart-race").value;
+      const totalSeconds = parseTime("chart-hours", "chart-minutes", "chart-seconds");
+      const distance = race === "half" ? 21.0975 : 42.195;
+
+      if (totalSeconds <= 0) return;
+
+      const pacePerKm = totalSeconds / distance;
+      const pacePerMile = totalSeconds / (distance / 1.60934);
+
+      document.getElementById("chart-pace-km").textContent = formatPace(pacePerKm);
+      document.getElementById("chart-pace-mile").textContent = formatPace(pacePerMile);
+
+      const splitPoints = [];
+      const fullKm = Math.floor(distance);
+      for (let km = 1; km <= fullKm; km++) splitPoints.push(km);
+      if (distance % 1 !== 0) splitPoints.push(distance);
+
+      const splitsEl = document.getElementById("chart-splits");
+      splitsEl.innerHTML = splitPoints
+        .map((km) => {
+          const label = km === distance ? "Finish" : "Km " + km;
+          const cumulative = pacePerKm * km;
+          return `<div class="wod-movement"><span class="wod-movement-name">${label}</span><span class="wod-movement-reps">${formatDuration(cumulative)}</span></div>`;
+        })
+        .join("");
+
+      document.getElementById("chart-placeholder").hidden = true;
+      document.getElementById("chart-results").hidden = false;
+    });
+  }
+
+  /* ── Race Predictor (Riegel formula) ── */
+  const predictorBtn = document.getElementById("predictor-calculate");
+  if (predictorBtn) {
+    const RIEGEL_EXPONENT = 1.06;
+    const races = [
+      { distance: 5, label: "5K" },
+      { distance: 10, label: "10K" },
+      { distance: 21.0975, label: "Half Marathon" },
+      { distance: 42.195, label: "Marathon" },
+    ];
+
+    predictorBtn.addEventListener("click", () => {
+      const knownDistance = parseFloat(document.getElementById("predictor-race").value);
+      const knownTime = parseTime("predictor-hours", "predictor-minutes", "predictor-seconds");
+
+      if (!knownDistance || knownTime <= 0) return;
+
+      const grid = document.getElementById("predictor-grid");
+      grid.innerHTML = races
+        .map((race) => {
+          const predicted =
+            knownTime * Math.pow(race.distance / knownDistance, RIEGEL_EXPONENT);
+          const pacePerKm = predicted / race.distance;
+          const highlight = race.distance === knownDistance ? " highlight" : "";
+          return `<div class="result-item${highlight}">
+            <div class="value">${formatDuration(predicted)}</div>
+            <div class="label">${race.label} · ${formatPace(pacePerKm)}/km</div>
+          </div>`;
+        })
+        .join("");
+
+      document.getElementById("predictor-placeholder").hidden = true;
+      document.getElementById("predictor-results").hidden = false;
+    });
+  }
+
   /* ── Zone 2 Calculator ── */
   const zone2Form = document.getElementById("zone2-form");
   if (zone2Form) {

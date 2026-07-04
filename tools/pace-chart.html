@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pace Calculator — PaceWOD</title>
-  <meta name="description" content="Calculate running pace per km and mile from distance and finish time. Get split times for 5K, 10K, half marathon, and more.">
+  <title>Pace Chart — PaceWOD</title>
+  <meta name="description" content="Marathon and half marathon pace chart. Look up target finish times and corresponding pace per km and mile.">
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -14,8 +14,8 @@
       <button class="nav-toggle" aria-label="Toggle menu">☰</button>
       <ul class="nav-links">
         <li><a href="../index.html">Home</a></li>
-        <li><a href="pace-calculator.html" class="active">Pace Calculator</a></li>
-        <li><a href="pace-chart.html">Pace Chart</a></li>
+        <li><a href="pace-calculator.html">Pace Calculator</a></li>
+        <li><a href="pace-chart.html" class="active">Pace Chart</a></li>
         <li><a href="race-predictor.html">Race Predictor</a></li>
         <li><a href="zone2-calculator.html">Zone 2</a></li>
         <li><a href="wod-generator.html">WOD Generator</a></li>
@@ -27,61 +27,56 @@
   <main>
     <div class="container">
       <div class="page-header">
-        <h1>Pace Calculator</h1>
-        <p>Enter your distance and finish time to get pace per km, pace per mile, and projected split times.</p>
+        <h1>Pace Chart</h1>
+        <p>Reference pace tables for half marathon and full marathon. Select a race distance and target finish time to see your required pace.</p>
       </div>
 
       <div class="tool-layout">
         <div class="tool-panel">
           <h2>Input</h2>
-          <form id="pace-form">
+          <form id="pace-chart-form" onsubmit="return false;">
             <div class="form-group">
-              <label for="pace-distance">Distance (km)</label>
-              <input type="number" id="pace-distance" step="0.01" min="0.1" placeholder="e.g. 10" required>
+              <label for="chart-race">Race Distance</label>
+              <select id="chart-race">
+                <option value="half">Half Marathon (21.0975 km)</option>
+                <option value="full">Full Marathon (42.195 km)</option>
+              </select>
             </div>
             <div class="form-group">
-              <label>Finish Time</label>
+              <label for="chart-target">Target Finish Time</label>
               <div class="form-row">
                 <div>
-                  <input type="number" id="pace-hours" min="0" placeholder="Hr" value="0">
+                  <input type="number" id="chart-hours" min="0" placeholder="Hr" value="1">
                 </div>
                 <div>
-                  <input type="number" id="pace-minutes" min="0" max="59" placeholder="Min" required>
+                  <input type="number" id="chart-minutes" min="0" max="59" placeholder="Min" value="45">
                 </div>
                 <div>
-                  <input type="number" id="pace-seconds" min="0" max="59" placeholder="Sec" value="0">
+                  <input type="number" id="chart-seconds" min="0" max="59" placeholder="Sec" value="0">
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Calculate Pace</button>
+            <button type="button" id="chart-lookup" class="btn btn-primary btn-block">Look Up Pace</button>
           </form>
         </div>
 
         <div class="tool-panel">
           <h2>Results</h2>
-          <div id="pace-results" hidden>
+          <div id="chart-results" hidden>
             <div class="result-grid">
               <div class="result-item highlight">
-                <div class="value" id="pace-result-km">—</div>
+                <div class="value" id="chart-pace-km">—</div>
                 <div class="label">Pace / km</div>
               </div>
               <div class="result-item">
-                <div class="value" id="pace-result-mile">—</div>
+                <div class="value" id="chart-pace-mile">—</div>
                 <div class="label">Pace / mile</div>
               </div>
-              <div class="result-item">
-                <div class="value" id="pace-result-kmh">—</div>
-                <div class="label">km/h</div>
-              </div>
-              <div class="result-item">
-                <div class="value" id="pace-result-mph">—</div>
-                <div class="label">mph</div>
-              </div>
             </div>
-            <h2 style="margin-top: 1.5rem;">Split Times</h2>
-            <div class="result-grid" id="pace-splits"></div>
+            <h2 style="margin-top: 1.5rem;">Split Chart</h2>
+            <div id="chart-splits"></div>
           </div>
-          <p id="pace-placeholder" style="color: var(--text-muted);">Enter your distance and time to see results.</p>
+          <p id="chart-placeholder" style="color: var(--text-muted);">Select a race distance and target time to view the pace chart.</p>
         </div>
       </div>
     </div>
@@ -98,10 +93,5 @@
   </footer>
 
   <script src="../script.js"></script>
-  <script>
-    document.getElementById("pace-form").addEventListener("submit", () => {
-      document.getElementById("pace-placeholder").hidden = true;
-    });
-  </script>
 </body>
 </html>

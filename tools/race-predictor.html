@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Race Predictor — PaceWOD</title>
+  <meta name="description" content="Predict race finish times for 5K, 10K, half marathon, and marathon based on a recent race result.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">Pace<span>WOD</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="pace-calculator.html">Pace Calculator</a></li>
+        <li><a href="pace-chart.html">Pace Chart</a></li>
+        <li><a href="race-predictor.html" class="active">Race Predictor</a></li>
+        <li><a href="zone2-calculator.html">Zone 2</a></li>
+        <li><a href="wod-generator.html">WOD Generator</a></li>
+        <li><a href="../blog/running/zone-2-running-guide.html">Blog</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>Race Predictor</h1>
+        <p>Enter a recent race result to predict equivalent finish times at other distances using the Riegel formula.</p>
+      </div>
+
+      <div class="tool-layout">
+        <div class="tool-panel">
+          <h2>Input</h2>
+          <form id="predictor-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="predictor-race">Recent Race Distance</label>
+              <select id="predictor-race">
+                <option value="5">5K</option>
+                <option value="10">10K</option>
+                <option value="21.0975">Half Marathon</option>
+                <option value="42.195">Full Marathon</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Finish Time</label>
+              <div class="form-row">
+                <div>
+                  <input type="number" id="predictor-hours" min="0" placeholder="Hr" value="0">
+                </div>
+                <div>
+                  <input type="number" id="predictor-minutes" min="0" max="59" placeholder="Min" value="25">
+                </div>
+                <div>
+                  <input type="number" id="predictor-seconds" min="0" max="59" placeholder="Sec" value="0">
+                </div>
+              </div>
+            </div>
+            <button type="button" id="predictor-calculate" class="btn btn-primary btn-block">Predict Times</button>
+          </form>
+        </div>
+
+        <div class="tool-panel">
+          <h2>Predictions</h2>
+          <div id="predictor-results" hidden>
+            <div class="result-grid" id="predictor-grid"></div>
+          </div>
+          <p id="predictor-placeholder" style="color: var(--text-muted);">Enter a recent race result to see predicted finish times.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2026 PaceWOD. Free tools for athletes.</p>
+      <ul class="footer-links">
+        <li><a href="pace-calculator.html">Tools</a></li>
+        <li><a href="../blog/running/zone-2-running-guide.html">Blog</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
