@@ -188,7 +188,32 @@
       cardio: ["Row (cal)", "Assault Bike (cal)", "Run (m)", "Double Unders", "Single Unders", "Ski Erg (cal)"],
       kettlebell: ["KB Swings", "KB Goblet Squats", "KB Clean & Press", "KB Snatches"],
     };
-
+    const wodTargets = {
+      amrap: {
+        rx: "4–6 rounds",
+        scaled: "3–5 rounds",
+        beginner: "2–4 rounds",
+        note: "Aim for steady rounds. Avoid redlining in the first few minutes."
+      },
+      fortime: {
+        rx: "8–12 minutes",
+        scaled: "10–15 minutes",
+        beginner: "12–18 minutes",
+        note: "Choose a load that lets you keep moving with short breaks."
+      },
+      emom: {
+        rx: "Finish each minute with 10–20 seconds rest",
+        scaled: "Finish each minute with 15–25 seconds rest",
+        beginner: "Finish each minute with 20–30 seconds rest",
+        note: "If you cannot finish the work inside the minute, reduce reps or load."
+      },
+      chipper: {
+        rx: "15–20 minutes",
+        scaled: "18–25 minutes",
+        beginner: "20–30 minutes",
+        note: "Break reps early and keep transitions short."
+      }
+    };
     const weightGuide = {
       Deadlifts: { rx: "225/155 lb", scaled: "155/105 lb", beginner: "95/65 lb" },
       "Back Squats": { rx: "135/95 lb", scaled: "95/65 lb", beginner: "65/45 lb" },
@@ -239,7 +264,14 @@
         guide: getMovementGuide(name, difficulty),
       }));
 
-      const text = `${difficulty.toUpperCase()} VERSION\n\n` + formats[format](duration, wodMovements);
+      const target = wodTargets[format];
+
+      const text =
+        `${difficulty.toUpperCase()} VERSION\n\n` +
+        formats[format](duration, wodMovements) +
+        `\n\nTarget Score\n${target[difficulty]}` +
+        `\n\nPacing Guide\n${target.note}`;
+      
       document.getElementById("wod-output-text").textContent = text;
 
       const listEl = document.getElementById("wod-movement-list");
