@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WOD Generator — PaceWOD</title>
-  <meta name="description" content="Generate random CrossFit workouts — AMRAP, EMOM, For Time, and Chipper formats with customizable equipment.">
+  <meta name="description" content="Generate random CrossFit workouts — AMRAP, EMOM, For Time, and Chipper formats with RX, Scaled, and Beginner weight guides.">
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -26,12 +26,13 @@
     <div class="container">
       <div class="page-header">
         <h1>WOD Generator</h1>
-        <p>Pick your format, select available equipment, and get a random workout. Perfect for home gyms and daily training.</p>
+        <p>Pick your format, select available equipment, choose RX, Scaled, or Beginner, and get a random workout.</p>
       </div>
 
       <div class="tool-layout">
         <div class="tool-panel">
           <h2>Settings</h2>
+
           <form id="wod-form" onsubmit="return false;">
             <div class="form-group">
               <label for="wod-format">Workout Format</label>
@@ -42,16 +43,28 @@
                 <option value="chipper">Chipper</option>
               </select>
             </div>
+
+            <div class="form-group">
+              <label for="wod-difficulty">Difficulty</label>
+              <select id="wod-difficulty">
+                <option value="rx">RX</option>
+                <option value="scaled">Scaled</option>
+                <option value="beginner">Beginner</option>
+              </select>
+            </div>
+
             <div class="form-row">
               <div class="form-group">
                 <label for="wod-duration">Duration / Rounds</label>
                 <input type="number" id="wod-duration" min="1" max="60" value="12">
               </div>
+
               <div class="form-group">
                 <label for="wod-movements-count">Movements</label>
                 <input type="number" id="wod-movements-count" min="2" max="8" value="4">
               </div>
             </div>
+
             <div class="form-group">
               <label>Equipment Available</label>
               <div class="checkbox-group">
@@ -62,18 +75,21 @@
                 <label class="checkbox-pill"><input type="checkbox" name="wod-equipment" value="kettlebell"> Kettlebell</label>
               </div>
             </div>
+
             <button type="button" id="wod-generate" class="btn btn-primary btn-block">Generate WOD</button>
           </form>
         </div>
 
         <div class="tool-panel">
           <h2>Your Workout</h2>
+
           <div id="wod-results" hidden>
             <div class="result-box">
               <pre class="wod-output" id="wod-output-text"></pre>
             </div>
             <div id="wod-movement-list" style="margin-top: 1rem;"></div>
           </div>
+
           <p id="wod-placeholder" style="color: var(--text-muted);">Select equipment and hit Generate to get a workout.</p>
         </div>
       </div>
@@ -91,10 +107,5 @@
   </footer>
 
   <script src="../script.js"></script>
-  <script>
-    document.getElementById("wod-generate").addEventListener("click", () => {
-      document.getElementById("wod-placeholder").hidden = true;
-    });
-  </script>
 </body>
 </html>

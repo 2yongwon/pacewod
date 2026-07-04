@@ -86,44 +86,8 @@
       document.getElementById("zone2-high").textContent = zone2High;
       document.getElementById("zone2-max-display").textContent = maxHR;
 
-      const zones = [
-        { name: "Zone 1", pct: "50–60%", low: 0.5, high: 0.6, desc: "Recovery" },
-        { name: "Zone 2", pct: "60–70%", low: 0.6, high: 0.7, desc: "Aerobic base" },
-        { name: "Zone 3", pct: "70–80%", low: 0.7, high: 0.8, desc: "Tempo" },
-        { name: "Zone 4", pct: "80–90%", low: 0.8, high: 0.9, desc: "Threshold" },
-        { name: "Zone 5", pct: "90–100%", low: 0.9, high: 1.0, desc: "Max effort" },
-      ];
-
-      const zoneGrid = document.getElementById("zone2-all-zones");
-      zoneGrid.innerHTML = zones
-        .map((z) => {
-          let low, high;
-          if (method === "karvonen" && resting) {
-            const reserve = maxHR - resting;
-            low = Math.round(reserve * z.low + resting);
-            high = Math.round(reserve * z.high + resting);
-          } else {
-            low = Math.round(maxHR * z.low);
-            high = Math.round(maxHR * z.high);
-          }
-          const highlight = z.name === "Zone 2" ? " highlight" : "";
-          return `<div class="result-item${highlight}"><div class="value">${low}–${high}</div><div class="label">${z.name} · ${z.desc}</div></div>`;
-        })
-        .join("");
-
       document.getElementById("zone2-results").hidden = false;
     });
-
-    const methodSelect = document.getElementById("zone2-method");
-    const maxField = document.getElementById("zone2-max-group");
-    const restingField = document.getElementById("zone2-resting-group");
-    if (methodSelect) {
-      methodSelect.addEventListener("change", () => {
-        const v = methodSelect.value;
-        maxField.hidden = v !== "measured";
-        restingField.hidden = v !== "karvonen";
-      });
-    }
   }
 
   /* ── WOD Generator ── */
@@ -137,15 +101,41 @@
       kettlebell: ["KB Swings", "KB Goblet Squats", "KB Clean & Press", "KB Snatches"],
     };
 
+    const weightGuide = {
+      Deadlifts: { rx: "225/155 lb", scaled: "155/105 lb", beginner: "95/65 lb" },
+      "Back Squats": { rx: "135/95 lb", scaled: "95/65 lb", beginner: "65/45 lb" },
+      "Front Squats": { rx: "135/95 lb", scaled: "95/65 lb", beginner: "65/45 lb" },
+      "Power Cleans": { rx: "135/95 lb", scaled: "95/65 lb", beginner: "65/45 lb" },
+      "Push Press": { rx: "95/65 lb", scaled: "65/45 lb", beginner: "45/35 lb" },
+      Thrusters: { rx: "95/65 lb", scaled: "65/45 lb", beginner: "45/35 lb" },
+      "Hang Cleans": { rx: "135/95 lb", scaled: "95/65 lb", beginner: "65/45 lb" },
+
+      "DB Snatches": { rx: "50/35 lb", scaled: "35/20 lb", beginner: "20/10 lb" },
+      "DB Thrusters": { rx: "50/35 lb", scaled: "35/20 lb", beginner: "20/10 lb" },
+      "DB Swings": { rx: "50/35 lb", scaled: "35/20 lb", beginner: "20/10 lb" },
+      "DB Lunges": { rx: "50/35 lb", scaled: "35/20 lb", beginner: "20/10 lb" },
+      "DB Push Press": { rx: "50/35 lb", scaled: "35/20 lb", beginner: "20/10 lb" },
+      "Devil Press": { rx: "50/35 lb", scaled: "35/20 lb", beginner: "20/10 lb" },
+
+      "KB Swings": { rx: "53/35 lb", scaled: "35/26 lb", beginner: "26/18 lb" },
+      "KB Goblet Squats": { rx: "53/35 lb", scaled: "35/26 lb", beginner: "26/18 lb" },
+      "KB Clean & Press": { rx: "53/35 lb", scaled: "35/26 lb", beginner: "26/18 lb" },
+      "KB Snatches": { rx: "53/35 lb", scaled: "35/26 lb", beginner: "26/18 lb" },
+
+      "Pull-ups": { rx: "Pull-ups", scaled: "Ring Rows", beginner: "Band Pull-ups" },
+      "Double Unders": { rx: "Double Unders", scaled: "Single Unders x2", beginner: "Single Unders" },
+    };
+
     const formats = {
-      amrap: (time, list) => `${time}-Minute AMRAP\n\n${list.map((m) => m.reps + " " + m.name).join("\n")}`,
-      fortime: (time, list) => `${list.length} Rounds For Time\n\n${list.map((m) => m.reps + " " + m.name).join("\n")}`,
-      emom: (time, list) => `EMOM ${time}\n\n${list.map((m, i) => "Min " + (i + 1) + ": " + m.reps + " " + m.name).join("\n")}`,
-      chipper: (time, list) => `Chipper\n\n${list.map((m) => m.reps + " " + m.name).join("\n")}`,
+      amrap: (time, list) => `${time}-Minute AMRAP\n\n${list.map(formatMovementLine).join("\n")}`,
+      fortime: (time, list) => `${list.length} Rounds For Time\n\n${list.map(formatMovementLine).join("\n")}`,
+      emom: (time, list) => `EMOM ${time}\n\n${list.map((m, i) => "Min " + (i + 1) + ": " + formatMovementLine(m)).join("\n")}`,
+      chipper: (time, list) => `Chipper\n\n${list.map(formatMovementLine).join("\n")}`,
     };
 
     document.getElementById("wod-generate").addEventListener("click", () => {
       const format = document.getElementById("wod-format").value;
+      const difficulty = document.getElementById("wod-difficulty")?.value || "rx";
       const duration = parseInt(document.getElementById("wod-duration").value, 10) || 12;
       const numMovements = parseInt(document.getElementById("wod-movements-count").value, 10) || 4;
       const checked = [...document.querySelectorAll('input[name="wod-equipment"]:checked')].map((el) => el.value);
@@ -154,21 +144,41 @@
 
       const pool = checked.flatMap((cat) => movements[cat] || []);
       const selected = shuffle(pool).slice(0, numMovements);
+
       const wodMovements = selected.map((name) => ({
         name,
         reps: randomReps(name, format),
+        guide: getMovementGuide(name, difficulty),
       }));
 
-      const text = formats[format](duration, wodMovements);
+      const text = `${difficulty.toUpperCase()} VERSION\n\n` + formats[format](duration, wodMovements);
       document.getElementById("wod-output-text").textContent = text;
 
       const listEl = document.getElementById("wod-movement-list");
-      listEl.innerHTML = wodMovements
-        .map((m) => `<div class="wod-movement"><span class="wod-movement-name">${m.name}</span><span class="wod-movement-reps">${m.reps}</span></div>`)
-        .join("");
+      listEl.innerHTML = `
+        <h3>Movement Guide</h3>
+        ${wodMovements
+          .map((m) => `
+            <div class="wod-movement">
+              <span class="wod-movement-name">${m.name}${m.guide ? ` <em>(${m.guide})</em>` : ""}</span>
+              <span class="wod-movement-reps">${m.reps}</span>
+            </div>
+          `)
+          .join("")}
+        <p class="note">Weights are general references. Adjust based on strength, skill, and safety.</p>
+      `;
 
+      document.getElementById("wod-placeholder").hidden = true;
       document.getElementById("wod-results").hidden = false;
     });
+
+    function getMovementGuide(name, difficulty) {
+      return weightGuide[name]?.[difficulty] || "";
+    }
+
+    function formatMovementLine(m) {
+      return `${m.reps} ${m.name}${m.guide ? ` (${m.guide})` : ""}`;
+    }
   }
 
   function shuffle(arr) {
