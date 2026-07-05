@@ -519,6 +519,67 @@ input::placeholder {
   font-family: var(--font-mono);
   font-size: 0.9rem;
   line-height: 1.7;
+  white-space: pre-line;
+}
+
+.schedule-list {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.schedule-group {
+  margin: 1.5rem 0;
+}
+
+.schedule-group:last-child {
+  margin-bottom: 0;
+}
+
+.schedule-week {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  color: var(--text);
+}
+
+.schedule-note {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin: -0.75rem 0 1.5rem;
+  padding-left: 0.25rem;
+  font-style: italic;
+}
+
+.schedule-list li {
+  display: grid;
+  grid-template-columns: 6.5rem 1fr;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+
+.schedule-list li:last-child {
+  border-bottom: none;
+}
+
+.schedule-day {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.schedule-detail {
+  color: var(--text-muted);
+}
+
+@media (max-width: 480px) {
+  .schedule-list li {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
 }
 
 .tag {
