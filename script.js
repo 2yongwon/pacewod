@@ -332,39 +332,74 @@
   /* ── WOD Generator ── */
   const wodForm = document.getElementById("wod-form");
   if (wodForm) {
-    const movements = {
-      bodyweight: ["Push-ups", "Air Squats", "Burpees", "Sit-ups", "Lunges", "Mountain Climbers", "Box Jumps", "Pull-ups"],
-      barbell: ["Deadlifts", "Back Squats", "Front Squats", "Power Cleans", "Push Press", "Thrusters", "Hang Cleans"],
-      dumbbell: ["DB Snatches", "DB Thrusters", "DB Swings", "DB Lunges", "DB Push Press", "Devil Press"],
-      cardio: ["Row (cal)", "Assault Bike (cal)", "Run (m)", "Double Unders", "Single Unders", "Ski Erg (cal)"],
-      kettlebell: ["KB Swings", "KB Goblet Squats", "KB Clean & Press", "KB Snatches"],
-    };
+    /* Each movement has one primary pattern to avoid duplicates (e.g. one squat, one cardio). */
+    const movementCatalog = [
+      { name: "Push-ups", pattern: "push", equipment: "bodyweight" },
+      { name: "Air Squats", pattern: "squat", equipment: "bodyweight" },
+      { name: "Burpees", pattern: "push", equipment: "bodyweight" },
+      { name: "Sit-ups", pattern: "core", equipment: "bodyweight" },
+      { name: "Lunges", pattern: "squat", equipment: "bodyweight" },
+      { name: "Mountain Climbers", pattern: "core", equipment: "bodyweight" },
+      { name: "Box Jumps", pattern: "squat", equipment: "bodyweight" },
+      { name: "Pull-ups", pattern: "pull", equipment: "bodyweight" },
+
+      { name: "Deadlifts", pattern: "hinge", equipment: "barbell" },
+      { name: "Back Squats", pattern: "squat", equipment: "barbell" },
+      { name: "Front Squats", pattern: "squat", equipment: "barbell" },
+      { name: "Power Cleans", pattern: "hinge", equipment: "barbell" },
+      { name: "Push Press", pattern: "push", equipment: "barbell" },
+      { name: "Thrusters", pattern: "squat", equipment: "barbell" },
+      { name: "Hang Cleans", pattern: "hinge", equipment: "barbell" },
+
+      { name: "DB Snatches", pattern: "hinge", equipment: "dumbbell" },
+      { name: "DB Thrusters", pattern: "squat", equipment: "dumbbell" },
+      { name: "DB Swings", pattern: "hinge", equipment: "dumbbell" },
+      { name: "DB Lunges", pattern: "squat", equipment: "dumbbell" },
+      { name: "DB Push Press", pattern: "push", equipment: "dumbbell" },
+      { name: "Devil Press", pattern: "hinge", equipment: "dumbbell" },
+
+      { name: "Row (cal)", pattern: "cardio", equipment: "cardio" },
+      { name: "Assault Bike (cal)", pattern: "cardio", equipment: "cardio" },
+      { name: "Run (m)", pattern: "cardio", equipment: "cardio" },
+      { name: "Double Unders", pattern: "cardio", equipment: "cardio" },
+      { name: "Single Unders", pattern: "cardio", equipment: "cardio" },
+      { name: "Ski Erg (cal)", pattern: "cardio", equipment: "cardio" },
+
+      { name: "KB Swings", pattern: "hinge", equipment: "kettlebell" },
+      { name: "KB Goblet Squats", pattern: "squat", equipment: "kettlebell" },
+      { name: "KB Clean & Press", pattern: "push", equipment: "kettlebell" },
+      { name: "KB Snatches", pattern: "hinge", equipment: "kettlebell" },
+    ];
+
+    const PATTERNS = ["cardio", "squat", "hinge", "push", "pull", "core"];
+
     const wodTargets = {
       amrap: {
         rx: "4–6 rounds",
         scaled: "3–5 rounds",
         beginner: "2–4 rounds",
-        note: "Aim for steady rounds. Avoid redlining in the first few minutes."
+        note: "Aim for steady rounds. Avoid redlining in the first few minutes.",
       },
       fortime: {
         rx: "8–12 minutes",
         scaled: "10–15 minutes",
         beginner: "12–18 minutes",
-        note: "Choose a load that lets you keep moving with short breaks."
+        note: "Choose a load that lets you keep moving with short breaks.",
       },
       emom: {
         rx: "Finish each minute with 10–20 seconds rest",
         scaled: "Finish each minute with 15–25 seconds rest",
         beginner: "Finish each minute with 20–30 seconds rest",
-        note: "If you cannot finish the work inside the minute, reduce reps or load."
+        note: "If you cannot finish the work inside the minute, reduce reps or load.",
       },
       chipper: {
         rx: "15–20 minutes",
         scaled: "18–25 minutes",
         beginner: "20–30 minutes",
-        note: "Break reps early and keep transitions short."
-      }
+        note: "Break reps early and keep transitions short.",
+      },
     };
+
     const weightGuide = {
       Deadlifts: { rx: "225/155 lb", scaled: "155/105 lb", beginner: "95/65 lb" },
       "Back Squats": { rx: "135/95 lb", scaled: "95/65 lb", beginner: "65/45 lb" },
@@ -406,13 +441,15 @@
 
       if (checked.length === 0) return;
 
-      const pool = checked.flatMap((cat) => movements[cat] || []);
-      const selected = shuffle(pool).slice(0, numMovements);
+      const pool = movementCatalog.filter((m) => checked.includes(m.equipment));
+      const selected = selectBalancedMovements(pool, numMovements);
 
-      const wodMovements = selected.map((name) => ({
-        name,
-        reps: randomReps(name, format),
-        guide: getMovementGuide(name, difficulty),
+      if (selected.length === 0) return;
+
+      const wodMovements = selected.map((m) => ({
+        name: m.name,
+        reps: randomReps(m.name, format),
+        guide: getMovementGuide(m.name, difficulty),
       }));
 
       const target = wodTargets[format];
@@ -422,19 +459,21 @@
         formats[format](duration, wodMovements) +
         `\n\nTarget Score\n${target[difficulty]}` +
         `\n\nPacing Guide\n${target.note}`;
-      
+
       document.getElementById("wod-output-text").textContent = text;
 
       const listEl = document.getElementById("wod-movement-list");
       listEl.innerHTML = `
         <h3>Movement Guide</h3>
         ${wodMovements
-          .map((m) => `
+          .map(
+            (m) => `
             <div class="wod-movement">
               <span class="wod-movement-name">${m.name}${m.guide ? ` <em>(${m.guide})</em>` : ""}</span>
               <span class="wod-movement-reps">${m.reps}</span>
             </div>
-          `)
+          `
+          )
           .join("")}
         <p class="note">Weights are general references. Adjust based on strength, skill, and safety.</p>
       `;
@@ -442,6 +481,53 @@
       document.getElementById("wod-placeholder").hidden = true;
       document.getElementById("wod-results").hidden = false;
     });
+
+    function selectBalancedMovements(pool, count) {
+      const byPattern = {};
+      pool.forEach((m) => {
+        if (!byPattern[m.pattern]) byPattern[m.pattern] = [];
+        byPattern[m.pattern].push(m);
+      });
+
+      const availablePatterns = PATTERNS.filter((p) => byPattern[p]?.length);
+      const selected = [];
+      const usedPatterns = new Set();
+
+      /* Prefer a balanced mix: one movement per pattern, max one cardio. */
+      const priority = buildPatternPriority(availablePatterns, count);
+      for (const pattern of priority) {
+        if (selected.length >= count) break;
+        if (usedPatterns.has(pattern)) continue;
+        selected.push(randPick(byPattern[pattern]));
+        usedPatterns.add(pattern);
+      }
+
+      return shuffle(selected);
+    }
+
+    function buildPatternPriority(available, count) {
+      /* Anchor with cardio when available, then fill complementary patterns. */
+      const hasCardio = available.includes("cardio");
+      const nonCardio = shuffle(available.filter((p) => p !== "cardio"));
+      const anchors = [];
+
+      if (hasCardio && count >= 2) anchors.push("cardio");
+      if (nonCardio.includes("pull")) anchors.push("pull");
+      if (nonCardio.includes("push")) anchors.push("push");
+
+      const lower = shuffle(["squat", "hinge"].filter((p) => nonCardio.includes(p)));
+      const rest = shuffle(
+        nonCardio.filter((p) => !anchors.includes(p) && !lower.includes(p))
+      );
+
+      const ordered = [...anchors, ...lower, ...rest];
+      const seen = new Set();
+      return ordered.filter((p) => {
+        if (seen.has(p)) return false;
+        seen.add(p);
+        return true;
+      });
+    }
 
     function getMovementGuide(name, difficulty) {
       return weightGuide[name]?.[difficulty] || "";
