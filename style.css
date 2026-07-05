@@ -364,6 +364,85 @@ main {
   margin-bottom: 0.5rem;
 }
 
+/* Race Predictor table */
+.predictor-table-wrap {
+  overflow-x: auto;
+  margin-top: 1rem;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.predictor-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.predictor-table th,
+.predictor-table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.predictor-table th {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  background: var(--bg-input);
+}
+
+.predictor-table td {
+  font-family: var(--font-mono);
+  color: var(--text);
+}
+
+.predictor-table td:first-child {
+  font-family: var(--font);
+  font-weight: 600;
+}
+
+.predictor-table tbody tr.highlight-row td {
+  background: var(--accent-dim);
+  border-bottom-color: rgba(255, 107, 53, 0.2);
+}
+
+.predictor-table tbody tr.highlight-row td:first-child {
+  color: var(--accent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.predictor-input-tag {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: var(--font);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  background: rgba(255, 107, 53, 0.2);
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.predictor-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.predictor-note {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
 /* Forms */
 .form-group {
   margin-bottom: 1.25rem;

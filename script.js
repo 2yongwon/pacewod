@@ -123,20 +123,42 @@
       if (!knownDistance || knownTime <= 0) return;
 
       const grid = document.getElementById("predictor-grid");
-      grid.innerHTML = races
+      const rows = races
         .map((race) => {
           const predicted =
             knownTime * Math.pow(race.distance / knownDistance, RIEGEL_EXPONENT);
           const pacePerKm = predicted / race.distance;
           const splits = getPacingSplits(pacePerKm, strategy);
-          const highlight = race.distance === knownDistance ? " highlight" : "";
-          return `<div class="result-item${highlight}">
-            <div class="value">${formatDuration(predicted)}</div>
-            <div class="label">${race.label} · ${formatPace(pacePerKm)}/km avg</div>
-            <div class="label">${splits.firstLabel}: ${formatPace(splits.first)}/km · ${splits.secondLabel}: ${formatPace(splits.second)}/km</div>
-          </div>`;
+          const isInput = Math.abs(race.distance - knownDistance) < 0.001;
+          const rowClass = isInput ? " class=\"highlight-row\"" : "";
+          const inputTag = isInput ? ' <span class="predictor-input-tag">Your race</span>' : "";
+          return `<tr${rowClass}>
+            <td>${race.label}${inputTag}</td>
+            <td>${formatDuration(predicted)}</td>
+            <td>${formatPace(pacePerKm)}/km</td>
+            <td>${formatPace(splits.first)}/km</td>
+            <td>${formatPace(splits.second)}/km</td>
+          </tr>`;
         })
         .join("");
+
+      grid.innerHTML = `
+        <div class="predictor-table-wrap">
+          <table class="predictor-table">
+            <thead>
+              <tr>
+                <th>Distance</th>
+                <th>Predicted Time</th>
+                <th>Avg Pace</th>
+                <th>1st Half Pace</th>
+                <th>2nd Half Pace</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <p class="predictor-note">Predicted times are estimates based on the Riegel formula. Actual race performance depends on training, course conditions, weather, and pacing execution.</p>
+      `;
 
       document.getElementById("predictor-placeholder").hidden = true;
       document.getElementById("predictor-results").hidden = false;
