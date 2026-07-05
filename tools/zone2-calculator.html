@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Zone 2 Heart Rate Calculator — PaceWOD</title>
-  <meta name="description" content="Calculate your zone 2 heart rate for aerobic base training. Supports standard and Karvonen methods.">
+  <meta name="description" content="Calculate your zone 2 heart rate for aerobic base training. Supports age-based, max HR, Karvonen, and LTHR methods.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://pacewod.com/tools/zone2-calculator.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="PaceWOD">
   <meta property="og:title" content="Zone 2 Heart Rate Calculator — PaceWOD">
-  <meta property="og:description" content="Calculate your zone 2 heart rate for aerobic base training. Supports standard and Karvonen methods.">
+  <meta property="og:description" content="Calculate your zone 2 heart rate for aerobic base training. Supports age-based, max HR, Karvonen, and LTHR methods.">
   <meta property="og:url" content="https://pacewod.com/tools/zone2-calculator.html">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="../style.css">
@@ -39,7 +39,7 @@
     <div class="container">
       <div class="page-header">
         <h1>Zone 2 Calculator</h1>
-        <p>Find your aerobic base heart rate zone. Zone 2 training builds endurance and improves fat oxidation — the foundation of distance running.</p>
+        <p>Find your zone 2 heart rate for aerobic base training — the foundation of endurance running.</p>
       </div>
 
       <div class="tool-layout">
@@ -47,26 +47,31 @@
           <h2>Input</h2>
           <form id="zone2-form">
             <div class="form-group">
-              <label for="zone2-age">Age</label>
-              <input type="number" id="zone2-age" min="10" max="100" placeholder="e.g. 35" required>
-            </div>
-            <div class="form-group">
               <label for="zone2-method">Calculation Method</label>
               <select id="zone2-method">
-                <option value="standard">Standard (220 − age)</option>
-                <option value="karvonen">Karvonen (heart rate reserve)</option>
-                <option value="measured">Measured max HR</option>
+                <option value="standard">Age-Based (220 − age)</option>
+                <option value="maxhr">Max HR Based</option>
+                <option value="karvonen">Karvonen (Heart Rate Reserve)</option>
+                <option value="lthr">LTHR-Based (Runners)</option>
               </select>
             </div>
-            <div class="form-group" id="zone2-resting-group" hidden>
-              <label for="zone2-resting">Resting Heart Rate (bpm)</label>
-              <input type="number" id="zone2-resting" min="30" max="120" placeholder="e.g. 55">
+            <div class="form-group" id="zone2-age-group">
+              <label for="zone2-age">Age</label>
+              <input type="number" id="zone2-age" min="10" max="100" placeholder="e.g. 35">
             </div>
             <div class="form-group" id="zone2-max-group" hidden>
               <label for="zone2-max">Max Heart Rate (bpm)</label>
               <input type="number" id="zone2-max" min="100" max="220" placeholder="e.g. 185">
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Calculate Zones</button>
+            <div class="form-group" id="zone2-resting-group" hidden>
+              <label for="zone2-resting">Resting Heart Rate (bpm)</label>
+              <input type="number" id="zone2-resting" min="30" max="120" placeholder="e.g. 55">
+            </div>
+            <div class="form-group" id="zone2-lthr-group" hidden>
+              <label for="zone2-lthr">Lactate Threshold HR (bpm)</label>
+              <input type="number" id="zone2-lthr" min="100" max="210" placeholder="e.g. 168">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Calculate Zone 2</button>
           </form>
         </div>
 
@@ -75,12 +80,16 @@
           <div id="zone2-results" hidden>
             <div class="result-box highlight">
               <div class="result-value"><span id="zone2-low">—</span>–<span id="zone2-high">—</span> bpm</div>
-              <div class="result-label">Zone 2 range · Max HR: <span id="zone2-max-display">—</span> bpm</div>
+              <div class="result-label">Your Zone 2</div>
             </div>
-            <h2 style="margin-top: 1.5rem;">All Zones</h2>
-            <div class="result-grid" id="zone2-all-zones"></div>
+            <div class="result-box">
+              <div class="result-label">Purpose: Aerobic Base Training</div>
+              <div class="result-label result-level">Recommended Duration: 45–90 minutes</div>
+              <p class="result-desc" id="zone2-explanation"></p>
+            </div>
           </div>
-          <p id="zone2-placeholder" style="color: var(--text-muted);">Enter your age to calculate heart rate zones.</p>
+          <p id="zone2-placeholder" style="color: var(--text-muted);">Select a method and enter your details to calculate zone 2 heart rate.</p>
+          <p class="tool-disclaimer">Need all five training zones? Use the <a href="heart-rate-zone-calculator.html">Heart Rate Zone Calculator</a>.</p>
         </div>
       </div>
     </div>
@@ -100,10 +109,5 @@
   </footer>
 
   <script src="../script.js"></script>
-  <script>
-    document.getElementById("zone2-form").addEventListener("submit", () => {
-      document.getElementById("zone2-placeholder").hidden = true;
-    });
-  </script>
 </body>
 </html>

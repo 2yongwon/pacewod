@@ -341,40 +341,221 @@
     }
   }
 
+  /* ── Zone 2 Calculator ── */
   const zone2Form = document.getElementById("zone2-form");
   if (zone2Form) {
+    const zone2Method = document.getElementById("zone2-method");
+    const zone2AgeGroup = document.getElementById("zone2-age-group");
+    const zone2MaxGroup = document.getElementById("zone2-max-group");
+    const zone2RestingGroup = document.getElementById("zone2-resting-group");
+    const zone2LthrGroup = document.getElementById("zone2-lthr-group");
+
+    function updateZone2Fields() {
+      const method = zone2Method.value;
+      zone2AgeGroup.hidden = method === "maxhr" || method === "lthr";
+      zone2MaxGroup.hidden = method !== "maxhr";
+      zone2RestingGroup.hidden = method !== "karvonen";
+      zone2LthrGroup.hidden = method !== "lthr";
+    }
+
+    if (zone2Method) {
+      zone2Method.addEventListener("change", updateZone2Fields);
+      updateZone2Fields();
+    }
+
     zone2Form.addEventListener("submit", (e) => {
       e.preventDefault();
+      const method = zone2Method.value;
       const age = parseInt(document.getElementById("zone2-age").value, 10);
-      const resting = parseInt(document.getElementById("zone2-resting").value, 10) || null;
-      const method = document.getElementById("zone2-method").value;
+      const maxHRInput = parseInt(document.getElementById("zone2-max").value, 10);
+      const resting = parseInt(document.getElementById("zone2-resting").value, 10);
+      const lthr = parseInt(document.getElementById("zone2-lthr").value, 10);
 
-      if (!age || age < 10 || age > 100) return;
+      let zone2Low, zone2High, explanation;
 
-      let maxHR;
-      if (method === "measured") {
-        maxHR = parseInt(document.getElementById("zone2-max").value, 10);
-        if (!maxHR) return;
-      } else {
-        maxHR = 220 - age;
-      }
-
-      let zone2Low, zone2High;
-
-      if (method === "karvonen" && resting) {
+      if (method === "lthr") {
+        if (!lthr || lthr < 100 || lthr > 210) return;
+        zone2Low = Math.round(lthr * 0.85);
+        zone2High = Math.round(lthr * 0.89);
+        explanation =
+          "Based on 85–89% of your lactate threshold heart rate — the standard zone 2 range for runners using LTHR.";
+      } else if (method === "maxhr") {
+        if (!maxHRInput || maxHRInput < 100 || maxHRInput > 220) return;
+        zone2Low = Math.round(maxHRInput * 0.6);
+        zone2High = Math.round(maxHRInput * 0.7);
+        explanation =
+          "Based on 60–70% of your measured max heart rate — a simple percentage method for aerobic base training.";
+      } else if (method === "karvonen") {
+        if (!age || age < 10 || age > 100 || !resting || resting < 30 || resting > 120) return;
+        const maxHR = 220 - age;
+        if (maxHR <= resting) return;
         const reserve = maxHR - resting;
         zone2Low = Math.round(reserve * 0.6 + resting);
         zone2High = Math.round(reserve * 0.7 + resting);
+        explanation =
+          "Based on 60–70% of heart rate reserve (Karvonen) using estimated max HR (220 − age) and your resting HR.";
       } else {
+        if (!age || age < 10 || age > 100) return;
+        const maxHR = 220 - age;
         zone2Low = Math.round(maxHR * 0.6);
         zone2High = Math.round(maxHR * 0.7);
+        explanation =
+          "Based on 60–70% of estimated max heart rate (220 − age) — the most common starting point for zone 2 training.";
       }
 
       document.getElementById("zone2-low").textContent = zone2Low;
       document.getElementById("zone2-high").textContent = zone2High;
-      document.getElementById("zone2-max-display").textContent = maxHR;
-
+      document.getElementById("zone2-explanation").textContent = explanation;
+      document.getElementById("zone2-placeholder").hidden = true;
       document.getElementById("zone2-results").hidden = false;
+    });
+  }
+
+  /* ── HR Zones Calculator ── */
+  const hrzonesBtn = document.getElementById("hrzones-calculate");
+  if (hrzonesBtn) {
+    const HR_ZONE_DEFS = [
+      { name: "Zone 1", label: "Recovery" },
+      { name: "Zone 2", label: "Aerobic Base" },
+      { name: "Zone 3", label: "Tempo" },
+      { name: "Zone 4", label: "Threshold" },
+      { name: "Zone 5", label: "VO2 Max" },
+    ];
+
+    const MAXHR_PCTS = [
+      { low: 0.5, high: 0.6 },
+      { low: 0.6, high: 0.7 },
+      { low: 0.7, high: 0.8 },
+      { low: 0.8, high: 0.9 },
+      { low: 0.9, high: 1.0 },
+    ];
+
+    const LTHR_PCTS = [
+      { low: 0.65, high: 0.84 },
+      { low: 0.85, high: 0.89 },
+      { low: 0.9, high: 0.94 },
+      { low: 0.95, high: 0.99 },
+      { low: 1.0, high: null },
+    ];
+
+    const hrzonesMethod = document.getElementById("hrzones-method");
+    const hrzonesAgeGroup = document.getElementById("hrzones-age-group");
+    const hrzonesMaxGroup = document.getElementById("hrzones-max-group");
+    const hrzonesRestingGroup = document.getElementById("hrzones-resting-group");
+    const hrzonesLthrGroup = document.getElementById("hrzones-lthr-group");
+    const hrzonesMaxOptional = document.getElementById("hrzones-max-optional");
+
+    function updateHrzonesFields() {
+      const method = hrzonesMethod.value;
+      hrzonesAgeGroup.hidden = method === "lthr";
+      hrzonesMaxGroup.hidden = method === "lthr";
+      hrzonesRestingGroup.hidden = method !== "karvonen";
+      hrzonesLthrGroup.hidden = method !== "lthr";
+      if (hrzonesMaxOptional) {
+        hrzonesMaxOptional.textContent = method === "karvonen" ? "(optional)" : "";
+      }
+    }
+
+    function resolveMaxHR(age, maxHRInput) {
+      if (maxHRInput && maxHRInput >= 100 && maxHRInput <= 220) return maxHRInput;
+      if (age && age >= 10 && age <= 100) return 220 - age;
+      return null;
+    }
+
+    let HR_ZONE_RANGES = [];
+
+    function formatZoneRange(low, high) {
+      return high === null ? `${low}+` : `${low}–${high}`;
+    }
+
+    function buildZones(method, maxHR, resting, lthr) {
+      if (method === "lthr") {
+        HR_ZONE_RANGES = LTHR_PCTS.map((pct) => ({
+          low: Math.round(lthr * pct.low),
+          high: pct.high === null ? null : Math.round(lthr * pct.high),
+        }));
+        for (let i = 1; i < HR_ZONE_RANGES.length; i++) {
+          if (HR_ZONE_RANGES[i].low <= HR_ZONE_RANGES[i - 1].high) {
+            HR_ZONE_RANGES[i].low = HR_ZONE_RANGES[i - 1].high + 1;
+          }
+        }
+        return {
+          summary: `LTHR: ${lthr} bpm · Joe Friel running zones`,
+          zones: HR_ZONE_RANGES,
+        };
+      }
+
+      if (method === "karvonen") {
+        const reserve = maxHR - resting;
+        HR_ZONE_RANGES = MAXHR_PCTS.map((pct, index) => {
+          let low = Math.round(reserve * pct.low + resting);
+          let high = Math.round(reserve * pct.high + resting);
+          if (index > 0 && low <= HR_ZONE_RANGES[index - 1].high) {
+            low = HR_ZONE_RANGES[index - 1].high + 1;
+          }
+          if (index === MAXHR_PCTS.length - 1) high = null;
+          return { low, high };
+        });
+        return {
+          summary: `Max HR: ${maxHR} bpm · Resting HR: ${resting} bpm · Karvonen method`,
+          zones: HR_ZONE_RANGES,
+        };
+      }
+
+      HR_ZONE_RANGES = MAXHR_PCTS.map((pct, index) => {
+        let low = Math.round(maxHR * pct.low);
+        let high = index === MAXHR_PCTS.length - 1 ? null : Math.round(maxHR * pct.high);
+        if (index > 0 && low <= HR_ZONE_RANGES[index - 1].high) {
+          low = HR_ZONE_RANGES[index - 1].high + 1;
+        }
+        return { low, high };
+      });
+      return {
+        summary: `Max HR: ${maxHR} bpm · Percentage of max heart rate`,
+        zones: HR_ZONE_RANGES,
+      };
+    }
+
+    if (hrzonesMethod) {
+      hrzonesMethod.addEventListener("change", updateHrzonesFields);
+      updateHrzonesFields();
+    }
+
+    hrzonesBtn.addEventListener("click", () => {
+      const method = hrzonesMethod.value;
+      const age = parseInt(document.getElementById("hrzones-age").value, 10);
+      const maxHRInput = parseInt(document.getElementById("hrzones-max").value, 10);
+      const resting = parseInt(document.getElementById("hrzones-resting").value, 10);
+      const lthr = parseInt(document.getElementById("hrzones-lthr").value, 10);
+
+      let result;
+
+      if (method === "lthr") {
+        if (!lthr || lthr < 100 || lthr > 210) return;
+        result = buildZones("lthr", null, null, lthr);
+      } else if (method === "karvonen") {
+        if (!resting || resting < 30 || resting > 120) return;
+        const maxHR = resolveMaxHR(age, maxHRInput);
+        if (!maxHR || maxHR <= resting) return;
+        result = buildZones("karvonen", maxHR, resting, null);
+      } else {
+        const maxHR = resolveMaxHR(age, maxHRInput);
+        if (!maxHR) return;
+        result = buildZones("maxhr", maxHR, null, null);
+      }
+
+      document.getElementById("hrzones-method-label").textContent = result.summary;
+      document.getElementById("hrzones-grid").innerHTML = HR_ZONE_DEFS.map((zone, index) => {
+        const range = result.zones[index];
+        const highlight = index === 1 ? " highlight" : "";
+        return `<div class="result-item${highlight}">
+          <div class="value">${formatZoneRange(range.low, range.high)}</div>
+          <div class="label">${zone.name} · ${zone.label}</div>
+        </div>`;
+      }).join("");
+
+      document.getElementById("hrzones-placeholder").hidden = true;
+      document.getElementById("hrzones-results").hidden = false;
     });
   }
 

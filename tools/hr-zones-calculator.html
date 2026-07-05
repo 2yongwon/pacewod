@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Rate Zones Calculator — PaceWOD</title>
+  <meta name="description" content="Calculate all 5 heart rate training zones using max HR, Karvonen, or LTHR methods. Built for runners and endurance athletes.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://pacewod.com/tools/hr-zones-calculator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PaceWOD">
+  <meta property="og:title" content="Heart Rate Zones Calculator — PaceWOD">
+  <meta property="og:description" content="Calculate all 5 heart rate training zones using max HR, Karvonen, or LTHR methods. Built for runners and endurance athletes.">
+  <meta property="og:url" content="https://pacewod.com/tools/hr-zones-calculator.html">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Heart Rate Zones Calculator — PaceWOD">
+  <meta name="twitter:description" content="Calculate all 5 heart rate training zones using max HR, Karvonen, or LTHR methods.">
+  <link rel="stylesheet" href="../style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Heart Rate Zones Calculator",
+    "url": "https://pacewod.com/tools/hr-zones-calculator.html",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Any",
+    "description": "Calculate all 5 heart rate training zones using max HR, Karvonen, or LTHR methods.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": { "@type": "Organization", "name": "PaceWOD", "url": "https://pacewod.com/" }
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">Pace<span>WOD</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="pace-calculator.html">Pace Calculator</a></li>
+        <li><a href="pace-chart.html">Pace Chart</a></li>
+        <li><a href="race-predictor.html">Race Predictor</a></li>
+        <li><a href="zone2-calculator.html">Zone 2</a></li>
+        <li><a href="hr-zones-calculator.html" class="active">HR Zones</a></li>
+        <li><a href="vo2max-calculator.html">VO2 Max</a></li>
+        <li><a href="running-calories-calculator.html">Calories</a></li>
+        <li><a href="wod-generator.html">WOD Generator</a></li>
+        <li><a href="../blog/running/zone-2-running-guide.html">Blog</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>Heart Rate Zones Calculator</h1>
+        <p>Calculate all five heart rate training zones — from recovery to VO2 max. LTHR-based zones are recommended for runners.</p>
+      </div>
+
+      <div class="tool-layout">
+        <div class="tool-panel">
+          <h2>Input</h2>
+          <form id="hrzones-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="hrzones-method">Calculation Method</label>
+              <select id="hrzones-method">
+                <option value="maxhr">Max HR Based</option>
+                <option value="karvonen">Karvonen (Heart Rate Reserve)</option>
+                <option value="lthr" selected>LTHR-Based (Recommended for Runners)</option>
+              </select>
+            </div>
+            <div class="form-group" id="hrzones-age-group">
+              <label for="hrzones-age">Age <span style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+              <input type="number" id="hrzones-age" min="10" max="100" placeholder="e.g. 35">
+            </div>
+            <div class="form-group" id="hrzones-max-group">
+              <label for="hrzones-max">Max Heart Rate (bpm) <span id="hrzones-max-optional" style="font-weight:400;color:var(--text-muted)">(optional)</span></label>
+              <input type="number" id="hrzones-max" min="100" max="220" placeholder="e.g. 185">
+            </div>
+            <div class="form-group" id="hrzones-resting-group" hidden>
+              <label for="hrzones-resting">Resting Heart Rate (bpm)</label>
+              <input type="number" id="hrzones-resting" min="30" max="120" placeholder="e.g. 55">
+            </div>
+            <div class="form-group" id="hrzones-lthr-group">
+              <label for="hrzones-lthr">Lactate Threshold HR (bpm)</label>
+              <input type="number" id="hrzones-lthr" min="100" max="210" placeholder="e.g. 168">
+            </div>
+            <button type="button" id="hrzones-calculate" class="btn btn-primary btn-block">Calculate Zones</button>
+          </form>
+        </div>
+
+        <div class="tool-panel">
+          <h2>Results</h2>
+          <div id="hrzones-results" hidden>
+            <div class="result-box">
+              <div class="result-label" id="hrzones-method-label">—</div>
+            </div>
+            <div class="result-grid" id="hrzones-grid"></div>
+          </div>
+          <p id="hrzones-placeholder" style="color: var(--text-muted);">Select a method and enter your heart rate data to calculate all five zones.</p>
+          <p class="tool-disclaimer">Looking for zone 2 only? Use the <a href="zone2-calculator.html">Zone 2 Calculator</a>.</p>
+        </div>
+      </div>
+
+      <section class="method-guidance">
+        <h2>Which Method Should You Use?</h2>
+        <div class="method-grid">
+          <div class="method-card">
+            <h3>Max HR Based</h3>
+            <p>Max HR is good for general users — a simple starting point using percentage of estimated or measured max heart rate.</p>
+          </div>
+          <div class="method-card">
+            <h3>Karvonen</h3>
+            <p>Karvonen is better for personalized fitness — accounts for resting heart rate and heart rate reserve.</p>
+          </div>
+          <div class="method-card recommended">
+            <span class="method-badge">Recommended for Runners</span>
+            <h3>LTHR-Based</h3>
+            <p>LTHR is recommended for runners and endurance athletes — zones tied to lactate threshold for more accurate training intensity.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2026 PaceWOD. Free tools for athletes.</p>
+      <ul class="footer-links">
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="../privacy-policy.html">Privacy</a></li>
+        <li><a href="pace-calculator.html">Tools</a></li>
+        <li><a href="../blog/running/zone-2-running-guide.html">Zone 2 Guide</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
