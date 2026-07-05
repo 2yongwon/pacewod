@@ -87,14 +87,17 @@ img {
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
   list-style: none;
+  justify-content: flex-end;
 }
 
 .nav-links a {
   color: var(--text-muted);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .nav-links a:hover,

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VO2 Max Calculator — PaceWOD</title>
+  <meta name="description" content="Estimate your VO2 max from a recent race result or Cooper 12-minute test distance.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">Pace<span>WOD</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="pace-calculator.html">Pace Calculator</a></li>
+        <li><a href="pace-chart.html">Pace Chart</a></li>
+        <li><a href="race-predictor.html">Race Predictor</a></li>
+        <li><a href="zone2-calculator.html">Zone 2</a></li>
+        <li><a href="heart-rate-zone-calculator.html">HR Zones</a></li>
+        <li><a href="vo2max-calculator.html" class="active">VO2 Max</a></li>
+        <li><a href="running-calories-calculator.html">Calories</a></li>
+        <li><a href="wod-generator.html">WOD Generator</a></li>
+        <li><a href="../blog/running/zone-2-running-guide.html">Blog</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>VO2 Max Calculator</h1>
+        <p>Estimate your VO2 max (ml/kg/min) from a race performance or Cooper 12-minute test result.</p>
+      </div>
+
+      <div class="tool-layout">
+        <div class="tool-panel">
+          <h2>Input</h2>
+          <form id="vo2-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="vo2-method">Method</label>
+              <select id="vo2-method">
+                <option value="race">Race Result</option>
+                <option value="cooper">Cooper 12-Min Test</option>
+              </select>
+            </div>
+            <div id="vo2-race-fields">
+              <div class="form-group">
+                <label for="vo2-distance">Race Distance</label>
+                <select id="vo2-distance">
+                  <option value="5">5K</option>
+                  <option value="10">10K</option>
+                  <option value="21.0975">Half Marathon</option>
+                  <option value="42.195">Marathon</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Finish Time</label>
+                <div class="form-row">
+                  <div><input type="number" id="vo2-hours" min="0" placeholder="Hr" value="0"></div>
+                  <div><input type="number" id="vo2-minutes" min="0" max="59" placeholder="Min" value="25"></div>
+                  <div><input type="number" id="vo2-seconds" min="0" max="59" placeholder="Sec" value="0"></div>
+                </div>
+              </div>
+            </div>
+            <div id="vo2-cooper-fields" hidden>
+              <div class="form-group">
+                <label for="vo2-cooper-distance">Distance in 12 Minutes (meters)</label>
+                <input type="number" id="vo2-cooper-distance" min="1000" max="4000" placeholder="e.g. 2800">
+              </div>
+            </div>
+            <button type="button" id="vo2-calculate" class="btn btn-primary btn-block">Calculate VO2 Max</button>
+          </form>
+        </div>
+
+        <div class="tool-panel">
+          <h2>Results</h2>
+          <div id="vo2-results" hidden>
+            <div class="result-box highlight">
+              <div class="result-value"><span id="vo2-value">—</span> ml/kg/min</div>
+              <div class="result-label">Estimated VO2 Max · <span id="vo2-rating">—</span></div>
+            </div>
+            <div class="result-grid" id="vo2-details"></div>
+          </div>
+          <p id="vo2-placeholder" style="color: var(--text-muted);">Enter a race result or Cooper test distance to estimate VO2 max.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2026 PaceWOD. Free tools for athletes.</p>
+      <ul class="footer-links">
+        <li><a href="pace-calculator.html">Tools</a></li>
+        <li><a href="../blog/running/vo2max-running-guide.html">VO2 Max Guide</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

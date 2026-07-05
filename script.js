@@ -140,7 +140,158 @@
     });
   }
 
-  /* ── Zone 2 Calculator ── */
+  /* ── Heart Rate Zone Calculator ── */
+  const hrzBtn = document.getElementById("hrz-calculate");
+  if (hrzBtn) {
+    const hrZones = [
+      { name: "Zone 1", pct: "50–60%", low: 0.5, high: 0.6, desc: "Recovery & warm-up" },
+      { name: "Zone 2", pct: "60–70%", low: 0.6, high: 0.7, desc: "Aerobic base" },
+      { name: "Zone 3", pct: "70–80%", low: 0.7, high: 0.8, desc: "Tempo / steady state" },
+      { name: "Zone 4", pct: "80–90%", low: 0.8, high: 0.9, desc: "Lactate threshold" },
+      { name: "Zone 5", pct: "90–100%", low: 0.9, high: 1.0, desc: "VO2 max / anaerobic" },
+    ];
+
+    const hrzMethod = document.getElementById("hrz-method");
+    const hrzRestingGroup = document.getElementById("hrz-resting-group");
+    const hrzMaxGroup = document.getElementById("hrz-max-group");
+    if (hrzMethod) {
+      hrzMethod.addEventListener("change", () => {
+        const v = hrzMethod.value;
+        hrzRestingGroup.hidden = v !== "karvonen";
+        hrzMaxGroup.hidden = v !== "measured";
+      });
+    }
+
+    hrzBtn.addEventListener("click", () => {
+      const age = parseInt(document.getElementById("hrz-age").value, 10);
+      const method = document.getElementById("hrz-method").value;
+      const resting = parseInt(document.getElementById("hrz-resting").value, 10) || null;
+
+      if (!age || age < 10 || age > 100) return;
+
+      let maxHR;
+      if (method === "measured") {
+        maxHR = parseInt(document.getElementById("hrz-max").value, 10);
+        if (!maxHR) return;
+      } else {
+        maxHR = 220 - age;
+      }
+
+      document.getElementById("hrz-max-display").textContent = maxHR;
+      document.getElementById("hrz-zones").innerHTML = hrZones
+        .map((z) => {
+          let low, high;
+          if (method === "karvonen" && resting) {
+            const reserve = maxHR - resting;
+            low = Math.round(reserve * z.low + resting);
+            high = Math.round(reserve * z.high + resting);
+          } else {
+            low = Math.round(maxHR * z.low);
+            high = Math.round(maxHR * z.high);
+          }
+          return `<div class="wod-movement"><span class="wod-movement-name">${z.name} · ${z.desc} <em>(${z.pct})</em></span><span class="wod-movement-reps">${low}–${high} bpm</span></div>`;
+        })
+        .join("");
+
+      document.getElementById("hrz-placeholder").hidden = true;
+      document.getElementById("hrz-results").hidden = false;
+    });
+  }
+
+  /* ── VO2 Max Calculator ── */
+  const vo2Btn = document.getElementById("vo2-calculate");
+  if (vo2Btn) {
+    const vo2Method = document.getElementById("vo2-method");
+    const vo2RaceFields = document.getElementById("vo2-race-fields");
+    const vo2CooperFields = document.getElementById("vo2-cooper-fields");
+    if (vo2Method) {
+      vo2Method.addEventListener("change", () => {
+        const isCooper = vo2Method.value === "cooper";
+        vo2RaceFields.hidden = isCooper;
+        vo2CooperFields.hidden = !isCooper;
+      });
+    }
+
+    vo2Btn.addEventListener("click", () => {
+      let vo2;
+      const method = document.getElementById("vo2-method").value;
+
+      if (method === "cooper") {
+        const meters = parseFloat(document.getElementById("vo2-cooper-distance").value);
+        if (!meters || meters < 1000) return;
+        vo2 = (meters - 504.9) / 44.73;
+      } else {
+        const distance = parseFloat(document.getElementById("vo2-distance").value);
+        const totalSeconds = parseTime("vo2-hours", "vo2-minutes", "vo2-seconds");
+        if (!distance || totalSeconds <= 0) return;
+        const velocity = (distance * 1000) / (totalSeconds / 60);
+        vo2 = -4.6 + 0.182258 * velocity + 0.000104 * velocity * velocity;
+      }
+
+      vo2 = Math.round(vo2 * 10) / 10;
+      const rating = getVo2Rating(vo2);
+
+      document.getElementById("vo2-value").textContent = vo2;
+      document.getElementById("vo2-rating").textContent = rating.label;
+      document.getElementById("vo2-details").innerHTML = `
+        <div class="result-item"><div class="value">${rating.poor}+</div><div class="label">Poor</div></div>
+        <div class="result-item"><div class="value">${rating.fair}+</div><div class="label">Fair</div></div>
+        <div class="result-item highlight"><div class="value">${rating.good}+</div><div class="label">Good</div></div>
+        <div class="result-item"><div class="value">${rating.excellent}+</div><div class="label">Excellent</div></div>
+      `;
+
+      document.getElementById("vo2-placeholder").hidden = true;
+      document.getElementById("vo2-results").hidden = false;
+    });
+
+    function getVo2Rating(vo2) {
+      if (vo2 >= 52) return { label: "Excellent", poor: 30, fair: 38, good: 45, excellent: 52 };
+      if (vo2 >= 45) return { label: "Good", poor: 30, fair: 38, good: 45, excellent: 52 };
+      if (vo2 >= 38) return { label: "Fair", poor: 30, fair: 38, good: 45, excellent: 52 };
+      return { label: "Poor", poor: 30, fair: 38, good: 45, excellent: 52 };
+    }
+  }
+
+  /* ── Running Calories Calculator ── */
+  const calBtn = document.getElementById("cal-calculate");
+  if (calBtn) {
+    calBtn.addEventListener("click", () => {
+      const weight = parseFloat(document.getElementById("cal-weight").value);
+      const distance = parseFloat(document.getElementById("cal-distance").value);
+      const paceMin = parseInt(document.getElementById("cal-pace-min").value, 10) || 0;
+      const paceSec = parseInt(document.getElementById("cal-pace-sec").value, 10) || 0;
+
+      if (!weight || !distance || distance <= 0) return;
+
+      const paceSeconds = paceMin * 60 + paceSec;
+      if (paceSeconds <= 0) return;
+
+      const speedKmh = 3600 / paceSeconds;
+      const met = runningMetFromSpeed(speedKmh);
+      const durationHours = (paceSeconds * distance) / 3600;
+      const totalCal = Math.round(met * weight * durationHours);
+      const perKm = Math.round(totalCal / distance);
+
+      document.getElementById("cal-total").textContent = totalCal;
+      document.getElementById("cal-per-km").textContent = perKm;
+      document.getElementById("cal-duration").textContent = formatDuration(paceSeconds * distance);
+      document.getElementById("cal-met").textContent = met.toFixed(1);
+
+      document.getElementById("cal-placeholder").hidden = true;
+      document.getElementById("cal-results").hidden = false;
+    });
+
+    function runningMetFromSpeed(speedKmh) {
+      if (speedKmh < 6.4) return 6.0;
+      if (speedKmh < 8.0) return 8.3;
+      if (speedKmh < 9.7) return 9.8;
+      if (speedKmh < 11.3) return 11.0;
+      if (speedKmh < 12.9) return 11.5;
+      if (speedKmh < 14.5) return 12.8;
+      return 14.5;
+    }
+  }
+
   const zone2Form = document.getElementById("zone2-form");
   if (zone2Form) {
     zone2Form.addEventListener("submit", (e) => {

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heart Rate Zone Calculator — PaceWOD</title>
+  <meta name="description" content="Calculate all 5 heart rate training zones using standard, Karvonen, or measured max HR methods.">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">Pace<span>WOD</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="pace-calculator.html">Pace Calculator</a></li>
+        <li><a href="pace-chart.html">Pace Chart</a></li>
+        <li><a href="race-predictor.html">Race Predictor</a></li>
+        <li><a href="zone2-calculator.html">Zone 2</a></li>
+        <li><a href="heart-rate-zone-calculator.html" class="active">HR Zones</a></li>
+        <li><a href="vo2max-calculator.html">VO2 Max</a></li>
+        <li><a href="running-calories-calculator.html">Calories</a></li>
+        <li><a href="wod-generator.html">WOD Generator</a></li>
+        <li><a href="../blog/running/zone-2-running-guide.html">Blog</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>Heart Rate Zone Calculator</h1>
+        <p>Calculate all five heart rate training zones for easy runs, tempo, threshold, and interval work.</p>
+      </div>
+
+      <div class="tool-layout">
+        <div class="tool-panel">
+          <h2>Input</h2>
+          <form id="hrz-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="hrz-age">Age</label>
+              <input type="number" id="hrz-age" min="10" max="100" placeholder="e.g. 35" required>
+            </div>
+            <div class="form-group">
+              <label for="hrz-method">Calculation Method</label>
+              <select id="hrz-method">
+                <option value="standard">Standard (220 − age)</option>
+                <option value="karvonen">Karvonen (heart rate reserve)</option>
+                <option value="measured">Measured max HR</option>
+              </select>
+            </div>
+            <div class="form-group" id="hrz-resting-group" hidden>
+              <label for="hrz-resting">Resting Heart Rate (bpm)</label>
+              <input type="number" id="hrz-resting" min="30" max="120" placeholder="e.g. 55">
+            </div>
+            <div class="form-group" id="hrz-max-group" hidden>
+              <label for="hrz-max">Max Heart Rate (bpm)</label>
+              <input type="number" id="hrz-max" min="100" max="220" placeholder="e.g. 185">
+            </div>
+            <button type="button" id="hrz-calculate" class="btn btn-primary btn-block">Calculate Zones</button>
+          </form>
+        </div>
+
+        <div class="tool-panel">
+          <h2>Results</h2>
+          <div id="hrz-results" hidden>
+            <div class="result-box">
+              <div class="result-label">Max HR: <span id="hrz-max-display">—</span> bpm</div>
+            </div>
+            <div id="hrz-zones" style="margin-top: 1rem;"></div>
+          </div>
+          <p id="hrz-placeholder" style="color: var(--text-muted);">Enter your age to calculate all heart rate zones.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© 2026 PaceWOD. Free tools for athletes.</p>
+      <ul class="footer-links">
+        <li><a href="zone2-calculator.html">Tools</a></li>
+        <li><a href="../blog/running/zone-2-running-guide.html">Zone 2 Guide</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>
