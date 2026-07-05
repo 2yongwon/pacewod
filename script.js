@@ -358,12 +358,12 @@
       { name: "DB Push Press", pattern: "push", equipment: "dumbbell" },
       { name: "Devil Press", pattern: "hinge", equipment: "dumbbell" },
 
-      { name: "Row (cal)", pattern: "cardio", equipment: "cardio" },
-      { name: "Assault Bike (cal)", pattern: "cardio", equipment: "cardio" },
-      { name: "Run (m)", pattern: "cardio", equipment: "cardio" },
-      { name: "Double Unders", pattern: "cardio", equipment: "cardio" },
-      { name: "Single Unders", pattern: "cardio", equipment: "cardio" },
-      { name: "Ski Erg (cal)", pattern: "cardio", equipment: "cardio" },
+      { name: "Row (cal)", pattern: "cardio", equipment: "cardio", cardioGroup: "erg" },
+      { name: "Assault Bike (cal)", pattern: "cardio", equipment: "cardio", cardioGroup: "erg" },
+      { name: "Run (m)", pattern: "cardio", equipment: "cardio", cardioGroup: "run" },
+      { name: "Double Unders", pattern: "cardio", equipment: "cardio", cardioGroup: "jumprope" },
+      { name: "Single Unders", pattern: "cardio", equipment: "cardio", cardioGroup: "jumprope" },
+      { name: "Ski Erg (cal)", pattern: "cardio", equipment: "cardio", cardioGroup: "erg" },
 
       { name: "KB Swings", pattern: "hinge", equipment: "kettlebell" },
       { name: "KB Goblet Squats", pattern: "squat", equipment: "kettlebell" },
@@ -442,7 +442,10 @@
       if (checked.length === 0) return;
 
       const pool = movementCatalog.filter((m) => checked.includes(m.equipment));
-      const selected = selectBalancedMovements(pool, numMovements);
+      const isCardioOnly = checked.length === 1 && checked[0] === "cardio";
+      const selected = isCardioOnly
+        ? selectCardioOnlyMovements(pool, numMovements)
+        : selectBalancedMovements(pool, numMovements);
 
       if (selected.length === 0) return;
 
@@ -481,6 +484,47 @@
       document.getElementById("wod-placeholder").hidden = true;
       document.getElementById("wod-results").hidden = false;
     });
+
+    function selectCardioOnlyMovements(pool, count) {
+      const CARDIO_MIN = 3;
+      const filtered = filterJumpRopeConflict(pool);
+      const maxAvailable = filtered.length;
+      if (maxAvailable === 0) return [];
+
+      const pickCount = Math.min(Math.max(count, Math.min(CARDIO_MIN, maxAvailable)), maxAvailable);
+
+      const byGroup = { erg: [], run: [], jumprope: [] };
+      filtered.forEach((m) => {
+        (byGroup[m.cardioGroup] || byGroup.erg).push(m);
+      });
+
+      const selected = [];
+      const usedNames = new Set();
+
+      for (const group of shuffle(["erg", "run", "jumprope"])) {
+        if (selected.length >= pickCount || !byGroup[group].length) continue;
+        const pick = randPick(byGroup[group]);
+        selected.push(pick);
+        usedNames.add(pick.name);
+      }
+
+      for (const m of shuffle(filtered)) {
+        if (selected.length >= pickCount) break;
+        if (usedNames.has(m.name)) continue;
+        selected.push(m);
+        usedNames.add(m.name);
+      }
+
+      return shuffle(selected);
+    }
+
+    function filterJumpRopeConflict(pool) {
+      const hasDU = pool.some((m) => m.name === "Double Unders");
+      const hasSU = pool.some((m) => m.name === "Single Unders");
+      if (!hasDU || !hasSU) return pool;
+      const drop = randPick(["Double Unders", "Single Unders"]);
+      return pool.filter((m) => m.name !== drop);
+    }
 
     function selectBalancedMovements(pool, count) {
       const byPattern = {};
