@@ -118,6 +118,7 @@
     predictorBtn.addEventListener("click", () => {
       const knownDistance = parseFloat(document.getElementById("predictor-race").value);
       const knownTime = parseTime("predictor-hours", "predictor-minutes", "predictor-seconds");
+      const strategy = document.getElementById("predictor-strategy").value;
 
       if (!knownDistance || knownTime <= 0) return;
 
@@ -127,10 +128,12 @@
           const predicted =
             knownTime * Math.pow(race.distance / knownDistance, RIEGEL_EXPONENT);
           const pacePerKm = predicted / race.distance;
+          const splits = getPacingSplits(pacePerKm, strategy);
           const highlight = race.distance === knownDistance ? " highlight" : "";
           return `<div class="result-item${highlight}">
             <div class="value">${formatDuration(predicted)}</div>
-            <div class="label">${race.label} · ${formatPace(pacePerKm)}/km</div>
+            <div class="label">${race.label} · ${formatPace(pacePerKm)}/km avg</div>
+            <div class="label">${splits.firstLabel}: ${formatPace(splits.first)}/km · ${splits.secondLabel}: ${formatPace(splits.second)}/km</div>
           </div>`;
         })
         .join("");
@@ -138,6 +141,28 @@
       document.getElementById("predictor-placeholder").hidden = true;
       document.getElementById("predictor-results").hidden = false;
     });
+
+    function getPacingSplits(avgPacePerKm, strategy) {
+      switch (strategy) {
+        case "negative": {
+          const first = avgPacePerKm / 0.985;
+          return { first, second: first * 0.97, firstLabel: "1st Half", secondLabel: "2nd Half" };
+        }
+        case "positive": {
+          const first = avgPacePerKm / 1.015;
+          return { first, second: first * 1.03, firstLabel: "1st Half", secondLabel: "2nd Half" };
+        }
+        case "fast-start":
+          return {
+            first: avgPacePerKm * 0.97,
+            second: avgPacePerKm * 1.01,
+            firstLabel: "First 25%",
+            secondLabel: "Last 75%",
+          };
+        default:
+          return { first: avgPacePerKm, second: avgPacePerKm, firstLabel: "1st Half", secondLabel: "2nd Half" };
+      }
+    }
   }
 
   /* ── Heart Rate Zone Calculator ── */
@@ -214,25 +239,30 @@
 
     vo2Btn.addEventListener("click", () => {
       let vo2;
+      let vdot;
       const method = document.getElementById("vo2-method").value;
 
       if (method === "cooper") {
         const meters = parseFloat(document.getElementById("vo2-cooper-distance").value);
         if (!meters || meters < 1000) return;
         vo2 = (meters - 504.9) / 44.73;
+        vdot = calculateVdot(meters, 12 * 60);
       } else {
         const distance = parseFloat(document.getElementById("vo2-distance").value);
         const totalSeconds = parseTime("vo2-hours", "vo2-minutes", "vo2-seconds");
         if (!distance || totalSeconds <= 0) return;
         const velocity = (distance * 1000) / (totalSeconds / 60);
         vo2 = -4.6 + 0.182258 * velocity + 0.000104 * velocity * velocity;
+        vdot = calculateVdot(distance * 1000, totalSeconds);
       }
 
       vo2 = Math.round(vo2 * 10) / 10;
+      vdot = Math.round(vdot);
       const rating = getVo2Rating(vo2);
 
       document.getElementById("vo2-value").textContent = vo2;
       document.getElementById("vo2-rating").textContent = rating.label;
+      document.getElementById("vdot-value").textContent = vdot;
       document.getElementById("vo2-details").innerHTML = VO2_LEVELS.map((level, index) => {
         const highlight = rating.index === index ? " highlight" : "";
         return `<div class="result-item${highlight}">
@@ -251,6 +281,17 @@
       { range: "45–54.9", label: "Running Enthusiast", desc: "Strong aerobic fitness for regular runners" },
       { range: "55+", label: "Competitive / Athlete Level", desc: "High performance endurance level" },
     ];
+
+    function calculateVdot(distanceMeters, timeSeconds) {
+      const velocity = distanceMeters / (timeSeconds / 60);
+      const vo2 = -4.6 + 0.182258 * velocity + 0.000104 * velocity * velocity;
+      const timeMinutes = timeSeconds / 60;
+      const percentMax =
+        0.8 +
+        0.1894393 * Math.exp(-0.012778 * timeMinutes) +
+        0.2989558 * Math.exp(-0.1932605 * timeMinutes);
+      return vo2 / percentMax;
+    }
 
     function getVo2Rating(vo2) {
       if (vo2 >= 55) return { label: "Competitive / Athlete Level", index: 3 };

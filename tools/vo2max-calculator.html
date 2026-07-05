@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VO2 Max Calculator — PaceWOD</title>
-  <meta name="description" content="Estimate your VO2 max from a recent race result or Cooper 12-minute test distance.">
+  <title>VO2 Max & VDOT Calculator — PaceWOD</title>
+  <meta name="description" content="Estimate your VO2 max and VDOT from a recent race result or Cooper 12-minute test distance.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://pacewod.com/tools/vo2max-calculator.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="PaceWOD">
-  <meta property="og:title" content="VO2 Max Calculator — PaceWOD">
-  <meta property="og:description" content="Estimate your VO2 max from a recent race result or Cooper 12-minute test distance.">
+  <meta property="og:title" content="VO2 Max & VDOT Calculator — PaceWOD">
+  <meta property="og:description" content="Estimate your VO2 max and VDOT from a recent race result or Cooper 12-minute test distance.">
   <meta property="og:url" content="https://pacewod.com/tools/vo2max-calculator.html">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="../style.css">
@@ -38,8 +38,8 @@
   <main>
     <div class="container">
       <div class="page-header">
-        <h1>VO2 Max Calculator</h1>
-        <p>Estimate your VO2 max (ml/kg/min) from a race performance or Cooper 12-minute test result.</p>
+        <h1>VO2 Max & VDOT Calculator</h1>
+        <p>Estimate your VO2 max (ml/kg/min) and VDOT score from a race performance or Cooper 12-minute test result.</p>
       </div>
 
       <div class="tool-layout">
@@ -78,7 +78,7 @@
                 <input type="number" id="vo2-cooper-distance" min="1000" max="4000" placeholder="e.g. 2800">
               </div>
             </div>
-            <button type="button" id="vo2-calculate" class="btn btn-primary btn-block">Calculate VO2 Max</button>
+            <button type="button" id="vo2-calculate" class="btn btn-primary btn-block">Calculate VO2 Max & VDOT</button>
           </form>
         </div>
 
@@ -87,11 +87,18 @@
           <div id="vo2-results" hidden>
             <div class="result-box highlight">
               <div class="result-value"><span id="vo2-value">—</span> ml/kg/min</div>
-              <div class="result-label">Estimated VO2 Max · <span id="vo2-rating">—</span></div>
+              <div class="result-label">Estimated VO2 Max</div>
+              <p class="result-desc">Physiological aerobic capacity</p>
+              <div class="result-label result-level">Level: <span id="vo2-rating">—</span></div>
+            </div>
+            <div class="result-box">
+              <div class="result-value"><span id="vdot-value">—</span></div>
+              <div class="result-label">Estimated VDOT</div>
+              <p class="result-desc">Practical running performance indicator</p>
             </div>
             <div class="result-grid" id="vo2-details"></div>
           </div>
-          <p id="vo2-placeholder" style="color: var(--text-muted);">Enter a race result or Cooper test distance to estimate VO2 max.</p>
+          <p id="vo2-placeholder" style="color: var(--text-muted);">Enter a race result or Cooper test distance to estimate VO2 max and VDOT.</p>
           <p class="tool-disclaimer">VO2 Max is an estimate.<br>
           Results may differ from Garmin, COROS, Apple Watch, or lab testing.<br>
           Use this tool for general guidance only.</p>

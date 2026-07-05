@@ -418,6 +418,16 @@ input::placeholder {
   margin-top: 0.25rem;
 }
 
+.result-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.result-level {
+  margin-top: 0.75rem;
+}
+
 .result-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
