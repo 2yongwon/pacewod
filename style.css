@@ -1165,6 +1165,40 @@ input::placeholder {
   letter-spacing: 0.04em;
 }
 
+/* Related links (internal linking) */
+.related-links {
+  border-top: 1px solid var(--border);
+  padding: 2rem 1.5rem 2.5rem;
+}
+
+.related-links h2 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+}
+
+.related-links-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1.5rem;
+}
+
+.related-links-list a {
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.related-links-list a:hover {
+  text-decoration: underline;
+}
+
 /* Footer */
 .site-footer {
   border-top: 1px solid var(--border);

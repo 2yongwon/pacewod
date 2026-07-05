@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://pacewod.com/sitemap.xml
+Sitemap: https://www.pacewod.com/sitemap.xml
