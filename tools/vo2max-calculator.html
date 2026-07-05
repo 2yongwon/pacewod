@@ -85,18 +85,25 @@
         <div class="tool-panel">
           <h2>Results</h2>
           <div id="vo2-results" hidden>
-            <div class="result-box highlight">
-              <div class="result-value"><span id="vo2-value">—</span> ml/kg/min</div>
-              <div class="result-label">Estimated VO2 Max</div>
-              <p class="result-desc">Physiological aerobic capacity</p>
-              <div class="result-label result-level">Level: <span id="vo2-rating">—</span></div>
+            <div class="compare-grid">
+              <div class="compare-card compare-card--primary">
+                <span class="compare-label">VO2 Max</span>
+                <div class="compare-value-row">
+                  <span class="compare-value" id="vo2-value">—</span>
+                  <span class="compare-unit">ml/kg/min</span>
+                </div>
+                <p class="compare-desc">Physiological aerobic capacity</p>
+                <span class="compare-badge" id="vo2-rating">—</span>
+              </div>
+              <div class="compare-card">
+                <span class="compare-label">VDOT</span>
+                <span class="compare-value" id="vdot-value">—</span>
+                <p class="compare-desc">Practical running performance indicator</p>
+              </div>
             </div>
-            <div class="result-box">
-              <div class="result-value"><span id="vdot-value">—</span></div>
-              <div class="result-label">Estimated VDOT</div>
-              <p class="result-desc">Practical running performance indicator</p>
-            </div>
-            <div class="result-grid" id="vo2-details"></div>
+            <h3 class="results-subhead">Fitness Benchmarks</h3>
+            <div class="compare-benchmarks" id="vo2-details"></div>
+            <div class="info-box info-box--result" id="vo2-insight" hidden></div>
           </div>
           <p id="vo2-placeholder" style="color: var(--text-muted);">Enter a race result or Cooper test distance to estimate VO2 max and VDOT.</p>
           <p class="tool-disclaimer">VO2 Max is an estimate.<br>
@@ -104,6 +111,32 @@
           Use this tool for general guidance only.</p>
         </div>
       </div>
+      <article class="tool-guide">
+        <h2>How It Works</h2>
+        <p>This calculator estimates aerobic capacity in two ways: race-performance modeling (Daniels-style VDOT estimate converted to VO2) and the Cooper 12-minute distance formula. The race method reflects how fast you can sustain effort over a known distance, while Cooper reflects a controlled all-out 12-minute field test.</p>
+        <p>You will often see slightly different values from your watch because Garmin and COROS use device-specific models that include heart-rate trends, training load history, and run quality scoring rather than only one race or test input.</p>
+
+        <div class="expert-note">
+          <strong>Expert Note</strong>
+          <p>If your watch VO2 max and race-result VO2 differ by more than about 3 points, trust the number tied to your most recent race-pace block. Device estimates drift when heat, poor sleep, or wrist-HR noise affects input quality.</p>
+        </div>
+
+        <h2>Accuracy &amp; Limitations</h2>
+        <p>Daniels VDOT is highly practical for runners because it maps performance to training intensity, but it is still a model and not direct gas-exchange testing. Cooper can overestimate fitness for athletes with strong speed endurance and underestimate for those pacing too cautiously in the first 4 minutes.</p>
+        <p>Garmin Firstbeat and COROS EvoLab updates can lag by several workouts, so a single hard race may not immediately match your watch score. For training zones, combine this with the <a href="hr-zones-calculator.html">Heart Rate Zones Calculator</a> and sanity-check with easy-effort data from the <a href="zone2-calculator.html">Zone 2 Calculator</a>.</p>
+
+        <h2>Real-World Examples</h2>
+        <p>A runner with a 10K result of 48:00 might see a VDOT around the low-40s, then realize their easy runs are too hard after comparing heart-rate drift in Zone 2. Another runner may test 2800 m in Cooper and get a strong VO2 estimate, but still race below that potential until long-run pacing improves.</p>
+        <p>Use this tool after each goal race cycle, not after every random workout, so the trend reflects real fitness changes rather than day-to-day fatigue swings.</p>
+
+        <h2>FAQ</h2>
+        <h3>Why is my Garmin VO2 max lower than this result?</h3>
+        <p>Garmin's Firstbeat estimate weighs heart-rate and pace behavior across multiple runs. If recent runs were mostly easy, hilly, or heat-affected, watch VO2 can stay lower even when race results improve.</p>
+        <h3>Should I use race method or Cooper method?</h3>
+        <p>Use race method when you have a recent all-out race on a measured course. Use Cooper when you do not have a current race but can perform a controlled 12-minute test on a track.</p>
+        <h3>How often should I recalculate VO2 or VDOT?</h3>
+        <p>Every 4-8 weeks is enough for most runners. Recalculate after a tune-up race, then adjust workout paces gradually rather than making large jumps from one estimate.</p>
+      </article>
     </div>
   </main>
 

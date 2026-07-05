@@ -95,7 +95,8 @@
             <div class="result-box">
               <div class="result-label" id="hrzones-method-label">—</div>
             </div>
-            <div class="result-grid" id="hrzones-grid"></div>
+            <div class="hr-zones-visual" id="hrzones-grid"></div>
+            <div class="info-box info-box--result" id="hrzones-insight" hidden></div>
           </div>
           <p id="hrzones-placeholder" style="color: var(--text-muted);">Select a method and enter your heart rate data to calculate all five zones.</p>
           <p class="tool-disclaimer">Looking for zone 2 only? Use the <a href="zone2-calculator.html">Zone 2 Calculator</a>.</p>
@@ -120,6 +121,35 @@
           </div>
         </div>
       </section>
+
+      <article class="tool-guide">
+        <h2>How It Works</h2>
+        <p>This calculator builds five training zones from the method you choose: Max HR %, Karvonen (heart-rate reserve), or LTHR-based zones. Each method calculates lower and upper bounds for Zones 1-5 so you can train recovery, aerobic endurance, threshold, and VO2 sessions with clearer intent.</p>
+        <p>For runners, LTHR-based zones are often the most practical once threshold is tested because they map training intensity to your current fitness, not just age formulas.</p>
+        <div class="expert-note">
+          <strong>Expert Note</strong>
+          <p>If you train by watch alerts, set both lower and upper boundaries for each workout zone. A narrow target band prevents easy days from drifting too hard.</p>
+        </div>
+
+        <h2>Accuracy &amp; Limitations</h2>
+        <p>Zone outputs are reliable as a starting point, but wearable behavior and method choice can shift real-world readings. Optical sensors lag during short intervals, while chest straps react faster for threshold or VO2 work.</p>
+        <p>Garmin and COROS may display slightly different default zone boundaries even with similar HR data because their preset percentage models differ. If you use Joe Friel style LTHR running zones, align your watch zone percentages manually so workouts match your intended system.</p>
+
+        <h2>Real-World Examples</h2>
+        <p><strong>Easy day control:</strong> A runner with LTHR 170 bpm might keep Zone 2 under the low 150s to stay conversational, even if pace changes with heat or hills.</p>
+        <p><strong>Tempo workout:</strong> For 3 x 10 minutes at threshold, targeting upper Zone 3 to low Zone 4 keeps effort consistent across reps better than pacing by speed alone on rolling routes.</p>
+        <p><strong>Device setup:</strong> After calculating zones here, enter custom values in Garmin Connect or COROS app so watch alerts and post-run summaries reflect the same training model.</p>
+
+        <h2>FAQ</h2>
+        <h3>Which method should I trust most?</h3>
+        <p>Use LTHR if you have a recent threshold test and train regularly. Use Karvonen if you track resting HR well. Use Max HR percentages as a simple baseline when you are just starting.</p>
+
+        <h3>Why do my Garmin and COROS zones not match?</h3>
+        <p>They often apply different default percentage splits and rounding rules. Set custom zones in each platform using one method so your workout targets stay consistent.</p>
+
+        <h3>How often should I recalculate zones?</h3>
+        <p>Recheck every 6-10 weeks, or sooner after a major fitness jump, illness, or training break. Zones should evolve as your threshold and aerobic capacity change.</p>
+      </article>
     </div>
   </main>
 

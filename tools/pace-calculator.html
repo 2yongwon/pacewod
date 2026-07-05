@@ -89,12 +89,38 @@
                 <div class="label">mph</div>
               </div>
             </div>
-            <h2 style="margin-top: 1.5rem;">Split Times</h2>
-            <div class="result-grid" id="pace-splits"></div>
+            <h3 class="results-subhead">Split Chart</h3>
+            <div id="pace-splits"></div>
           </div>
           <p id="pace-placeholder" style="color: var(--text-muted);">Enter your distance and time to see results.</p>
         </div>
       </div>
+      <article class="tool-guide">
+        <h2>How It Works</h2>
+        <p>The calculator converts your total time and distance into average pace per kilometer and mile, then projects standard split checkpoints. This is ideal for setting race plans, treadmill targets, and workout pace bands from one known performance.</p>
+        <p>Remember that GPS watches show both lap pace and overall average pace. Lap pace can jump with signal noise, turns, and terrain, while average pace is smoother and better for confirming whether your total-time goal is still on track.</p>
+
+        <div class="expert-note">
+          <strong>Expert Note</strong>
+          <p>For steady races, monitor average pace as your primary control metric and use lap pace only as a short-term cue. Chasing every lap fluctuation usually causes unnecessary surges that cost time late in the run.</p>
+        </div>
+
+        <h2>Accuracy &amp; Limitations</h2>
+        <p>The math is exact for the numbers entered, but real-world execution depends on route measurement, elevation, weather, and crowding. GPS distance can read long on twisty routes, which makes watch pace look slower than official course pace.</p>
+        <p>If you are choosing a race goal rather than validating a completed run, pair this with the <a href="race-predictor.html">Race Predictor</a> and use the <a href="pace-chart.html">Pace Chart</a> for checkpoint-by-checkpoint race control.</p>
+
+        <h2>Real-World Examples</h2>
+        <p>A runner targeting 50:00 for 10K enters the goal time and sees 5:00/km, then plans to stay around 5:02-5:03/km for the first 2 km before settling into target pace. Another runner training for a 1:45 half uses split outputs to practice fueling every 5 km marker.</p>
+        <p>On hilly courses, athletes often hold effort uphill and make back time downhill, so live pace may vary while overall average remains close to target.</p>
+
+        <h2>FAQ</h2>
+        <h3>Should I race by lap pace or average pace?</h3>
+        <p>Use average pace for your main decision-making because it reflects total progress. Use lap pace as supporting feedback, especially in the first half of a race.</p>
+        <h3>Why does my watch pace not match this calculator?</h3>
+        <p>Watch pace is based on recorded GPS distance, which can differ from certified course distance. Small distance errors can create noticeable pace differences over long runs.</p>
+        <h3>Can I use this for treadmill workouts?</h3>
+        <p>Yes. Convert goal pace into time-based intervals, then adjust by feel if treadmill calibration or incline changes effort from what the calculated pace suggests.</p>
+      </article>
     </div>
   </main>
 

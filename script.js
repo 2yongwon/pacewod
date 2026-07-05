@@ -33,14 +33,15 @@
 
       const splits = [1, 5, 10, 21.0975, 42.195];
       const splitContainer = document.getElementById("pace-splits");
-      splitContainer.innerHTML = splits
+      const splitItems = splits
         .filter((d) => d <= distance || d === 1)
         .map((d) => {
           const splitTime = pacePerKm * d;
           const label = d === 21.0975 ? "Half" : d === 42.195 ? "Full" : d + " km";
-          return `<div class="result-item"><div class="value">${formatPace(splitTime)}</div><div class="label">${label}</div></div>`;
-        })
-        .join("");
+          return { label, value: formatPace(splitTime), barValue: splitTime };
+        });
+      splitContainer.className = "pace-bars";
+      splitContainer.innerHTML = renderPaceBars(splitItems);
 
       document.getElementById("pace-results").hidden = false;
     });
@@ -69,6 +70,83 @@
     return hours * 3600 + minutes * 60 + seconds;
   }
 
+  function renderPaceBars(items) {
+    const maxVal = Math.max(...items.map((item) => item.barValue), 1);
+    return items
+      .map((item) => {
+        const pct = (item.barValue / maxVal) * 100;
+        return `<div class="pace-bar-row">
+          <span class="pace-bar-label">${item.label}</span>
+          <div class="pace-bar-track"><div class="pace-bar-fill" style="width:${pct}%"></div></div>
+          <span class="pace-bar-value">${item.value}</span>
+        </div>`;
+      })
+      .join("");
+  }
+
+  function renderHrZoneBars(zoneDefs, zones, formatRange) {
+    const highs = zones.map((zone) => zone.high ?? zone.low + 20);
+    const maxScale = Math.max(...highs) + 5;
+    return zoneDefs
+      .map((zone, index) => {
+        const range = zones[index];
+        const high = range.high ?? maxScale;
+        const leftPct = (range.low / maxScale) * 100;
+        const widthPct = Math.max(((high - range.low) / maxScale) * 100, 2);
+        const highlight = index === 1 ? " hr-zone-row--highlight" : "";
+        return `<div class="hr-zone-row zone-${index + 1}${highlight}">
+          <div class="hr-zone-header">
+            <span class="hr-zone-name">${zone.name} · ${zone.label}</span>
+            <span class="hr-zone-range">${formatRange(range.low, range.high)} bpm</span>
+          </div>
+          <div class="hr-zone-track">
+            <div class="hr-zone-fill" style="left:${leftPct}%;width:${widthPct}%"></div>
+          </div>
+        </div>`;
+      })
+      .join("");
+  }
+
+  function renderCalBreakdown(distance, perKm) {
+    const kmCount = Math.min(Math.ceil(distance), 20);
+    const segments = [];
+    for (let km = 1; km <= kmCount; km++) {
+      segments.push({ label: "Km " + km, value: perKm });
+    }
+    const remainder = distance - Math.floor(distance);
+    if (remainder > 0.05 && kmCount < 20) {
+      segments.push({
+        label: distance.toFixed(1) + " km",
+        value: Math.round(perKm * remainder),
+      });
+    }
+    const maxCal = Math.max(...segments.map((seg) => seg.value), 1);
+    return segments
+      .map((seg) => {
+        const pct = (seg.value / maxCal) * 100;
+        return `<div class="cal-bar-row">
+          <span class="cal-bar-label">${seg.label}</span>
+          <div class="cal-bar-track"><div class="cal-bar-fill" style="width:${pct}%"></div></div>
+          <span class="cal-bar-value">${seg.value}</span>
+        </div>`;
+      })
+      .join("");
+  }
+
+  function updateZone2Gauge(zone2Low, zone2High, maxHR) {
+    const gauge = document.getElementById("zone2-gauge");
+    const fill = document.getElementById("zone2-gauge-fill");
+    const maxLabel = document.getElementById("zone2-gauge-max");
+    if (!gauge || !fill || !maxLabel || !maxHR) return;
+
+    const leftPct = (zone2Low / maxHR) * 100;
+    const widthPct = ((zone2High - zone2Low) / maxHR) * 100;
+    fill.style.left = leftPct + "%";
+    fill.style.width = Math.max(widthPct, 2) + "%";
+    maxLabel.textContent = maxHR + " bpm";
+    gauge.hidden = false;
+  }
+
   /* ── Pace Chart ── */
   const chartBtn = document.getElementById("chart-lookup");
   if (chartBtn) {
@@ -91,13 +169,13 @@
       if (distance % 1 !== 0) splitPoints.push(distance);
 
       const splitsEl = document.getElementById("chart-splits");
-      splitsEl.innerHTML = splitPoints
-        .map((km) => {
-          const label = km === distance ? "Finish" : "Km " + km;
-          const cumulative = pacePerKm * km;
-          return `<div class="wod-movement"><span class="wod-movement-name">${label}</span><span class="wod-movement-reps">${formatDuration(cumulative)}</span></div>`;
-        })
-        .join("");
+      const splitItems = splitPoints.map((km) => {
+        const label = km === distance ? "Finish" : "Km " + km;
+        const cumulative = pacePerKm * km;
+        return { label, value: formatDuration(cumulative), barValue: cumulative };
+      });
+      splitsEl.className = "pace-bars";
+      splitsEl.innerHTML = renderPaceBars(splitItems);
 
       document.getElementById("chart-placeholder").hidden = true;
       document.getElementById("chart-results").hidden = false;
@@ -286,12 +364,22 @@
       document.getElementById("vo2-rating").textContent = rating.label;
       document.getElementById("vdot-value").textContent = vdot;
       document.getElementById("vo2-details").innerHTML = VO2_LEVELS.map((level, index) => {
-        const highlight = rating.index === index ? " highlight" : "";
-        return `<div class="result-item${highlight}">
-          <div class="value">${level.range}</div>
-          <div class="label">${level.label} · ${level.desc}</div>
+        const active = rating.index === index ? " compare-benchmark--active" : "";
+        return `<div class="compare-benchmark${active}">
+          <span class="compare-benchmark-range">${level.range}</span>
+          <div class="compare-benchmark-body">
+            <strong>${level.label}</strong>
+            <span>${level.desc}</span>
+          </div>
         </div>`;
       }).join("");
+
+      const insightEl = document.getElementById("vo2-insight");
+      if (insightEl) {
+        insightEl.innerHTML = `<strong class="info-box__title">Expert Insight</strong>
+          <p class="info-box__body">${getVo2Insight(vo2, vdot, rating)}</p>`;
+        insightEl.hidden = false;
+      }
 
       document.getElementById("vo2-placeholder").hidden = true;
       document.getElementById("vo2-results").hidden = false;
@@ -321,6 +409,19 @@
       if (vo2 >= 35) return { label: "Recreational Runner", index: 1 };
       return { label: "Running Beginner", index: 0 };
     }
+
+    function getVo2Insight(vo2, vdot, rating) {
+      if (rating.index === 3) {
+        return `Your VO2 max of ${vo2} and VDOT of ${vdot} suggest strong aerobic capacity. Focus on race-specific workouts and recovery quality rather than adding more easy volume.`;
+      }
+      if (rating.index === 2) {
+        return `At VO2 ${vo2} (VDOT ${vdot}), you have solid fitness for structured training. Tempo and threshold work will move race times more than extra Zone 2 alone.`;
+      }
+      if (rating.index === 1) {
+        return `VO2 ${vo2} with VDOT ${vdot} is a typical recreational range. Consistent easy mileage and one weekly quality session usually produce the fastest gains from here.`;
+      }
+      return `VO2 ${vo2} and VDOT ${vdot} indicate you are building your aerobic base. Prioritize regular easy runs and gradual weekly volume before adding hard intervals.`;
+    }
   }
 
   /* ── Running Calories Calculator ── */
@@ -347,6 +448,11 @@
       document.getElementById("cal-per-km").textContent = perKm;
       document.getElementById("cal-duration").textContent = formatDuration(paceSeconds * distance);
       document.getElementById("cal-met").textContent = met.toFixed(1);
+
+      const breakdownEl = document.getElementById("cal-breakdown");
+      if (breakdownEl) {
+        breakdownEl.innerHTML = renderCalBreakdown(distance, perKm);
+      }
 
       document.getElementById("cal-placeholder").hidden = true;
       document.getElementById("cal-results").hidden = false;
@@ -393,18 +499,20 @@
       const resting = parseInt(document.getElementById("zone2-resting").value, 10);
       const lthr = parseInt(document.getElementById("zone2-lthr").value, 10);
 
-      let zone2Low, zone2High, explanation;
+      let zone2Low, zone2High, explanation, gaugeMax;
 
       if (method === "lthr") {
         if (!lthr || lthr < 100 || lthr > 210) return;
         zone2Low = Math.round(lthr * 0.85);
         zone2High = Math.round(lthr * 0.89);
+        gaugeMax = Math.max(zone2High + 40, Math.round(lthr * 1.05));
         explanation =
           "Based on 85–89% of your lactate threshold heart rate — the standard zone 2 range for runners using LTHR.";
       } else if (method === "maxhr") {
         if (!maxHRInput || maxHRInput < 100 || maxHRInput > 220) return;
         zone2Low = Math.round(maxHRInput * 0.6);
         zone2High = Math.round(maxHRInput * 0.7);
+        gaugeMax = maxHRInput;
         explanation =
           "Based on 60–70% of your measured max heart rate — a simple percentage method for aerobic base training.";
       } else if (method === "karvonen") {
@@ -414,6 +522,7 @@
         const reserve = maxHR - resting;
         zone2Low = Math.round(reserve * 0.6 + resting);
         zone2High = Math.round(reserve * 0.7 + resting);
+        gaugeMax = maxHR;
         explanation =
           "Based on 60–70% of heart rate reserve (Karvonen) using estimated max HR (220 − age) and your resting HR.";
       } else {
@@ -421,6 +530,7 @@
         const maxHR = 220 - age;
         zone2Low = Math.round(maxHR * 0.6);
         zone2High = Math.round(maxHR * 0.7);
+        gaugeMax = maxHR;
         explanation =
           "Based on 60–70% of estimated max heart rate (220 − age) — the most common starting point for zone 2 training.";
       }
@@ -428,6 +538,20 @@
       document.getElementById("zone2-low").textContent = zone2Low;
       document.getElementById("zone2-high").textContent = zone2High;
       document.getElementById("zone2-explanation").textContent = explanation;
+      updateZone2Gauge(zone2Low, zone2High, gaugeMax);
+
+      const zone2Insight = document.getElementById("zone2-insight");
+      if (zone2Insight) {
+        const methodTips = {
+          lthr: "LTHR-based Zone 2 usually tracks conversational easy runs better than age formulas. If breathing feels labored, drop 2–3 bpm.",
+          maxhr: "Percentage-of-max methods are a starting point. Validate with a 45-minute easy run and adjust if drift or decoupling is high.",
+          karvonen: "Karvonen accounts for resting HR, which helps fit athletes with lower resting rates. Recheck after fitness changes.",
+          age: "Age-based estimates are the simplest baseline. Upgrade to LTHR or Karvonen once you have threshold or resting HR data.",
+        };
+        zone2Insight.innerHTML = `<strong class="info-box__title">Expert Insight</strong>
+          <p class="info-box__body">${methodTips[method] || methodTips.age}</p>`;
+        zone2Insight.hidden = false;
+      }
       document.getElementById("zone2-placeholder").hidden = true;
       document.getElementById("zone2-results").hidden = false;
     });
@@ -567,14 +691,19 @@
       }
 
       document.getElementById("hrzones-method-label").textContent = result.summary;
-      document.getElementById("hrzones-grid").innerHTML = HR_ZONE_DEFS.map((zone, index) => {
-        const range = result.zones[index];
-        const highlight = index === 1 ? " highlight" : "";
-        return `<div class="result-item${highlight}">
-          <div class="value">${formatZoneRange(range.low, range.high)}</div>
-          <div class="label">${zone.name} · ${zone.label}</div>
-        </div>`;
-      }).join("");
+      document.getElementById("hrzones-grid").innerHTML = renderHrZoneBars(
+        HR_ZONE_DEFS,
+        result.zones,
+        formatZoneRange
+      );
+
+      const hrInsight = document.getElementById("hrzones-insight");
+      if (hrInsight) {
+        const z2 = result.zones[1];
+        hrInsight.innerHTML = `<strong class="info-box__title">Expert Insight</strong>
+          <p class="info-box__body">Zone 2 (${formatZoneRange(z2.low, z2.high)} bpm) is highlighted because it drives most aerobic gains. Spend 70–80% of weekly training time at or below Zone 2 for base building.</p>`;
+        hrInsight.hidden = false;
+      }
 
       document.getElementById("hrzones-placeholder").hidden = true;
       document.getElementById("hrzones-results").hidden = false;

@@ -87,11 +87,48 @@
               <div class="result-label result-level">Recommended Duration: 45–90 minutes</div>
               <p class="result-desc" id="zone2-explanation"></p>
             </div>
+            <div class="zone2-gauge" id="zone2-gauge" hidden>
+              <div class="zone2-gauge-labels">
+                <span>0 bpm</span>
+                <span id="zone2-gauge-max">—</span>
+              </div>
+              <div class="zone2-gauge-track">
+                <div class="zone2-gauge-fill" id="zone2-gauge-fill"></div>
+              </div>
+              <p class="zone2-gauge-caption">Zone 2 range on your heart rate scale</p>
+            </div>
+            <div class="info-box info-box--result" id="zone2-insight" hidden></div>
           </div>
           <p id="zone2-placeholder" style="color: var(--text-muted);">Select a method and enter your details to calculate zone 2 heart rate.</p>
-          <p class="tool-disclaimer">Need all five training zones? Use the <a href="heart-rate-zone-calculator.html">Heart Rate Zone Calculator</a>.</p>
+          <p class="tool-disclaimer">Need all five training zones? Use the <a href="hr-zones-calculator.html">Heart Rate Zone Calculator</a>.</p>
         </div>
       </div>
+      <article class="tool-guide">
+        <h2>How It Works</h2>
+        <p>The calculator supports four Zone 2 approaches: age-based, known max-HR, Karvonen reserve, and LTHR-based. For runners with threshold data, the LTHR option uses a practical Zone 2 range around 85-89% of threshold heart rate, which usually aligns better with sustainable aerobic work than generic formulas.</p>
+        <p>If Garmin Zone 2 feels too low for your easy long runs, that is common when device defaults are anchored to broad population equations. Switching to LTHR or Karvonen often produces a range that matches your breathing and decoupling data more closely.</p>
+
+        <div class="expert-note">
+          <strong>Expert Note</strong>
+          <p>A good Zone 2 target should let you speak in short sentences, keep cadence relaxed, and finish with stable form. If pace fades sharply at the same heart rate, your true ceiling is probably 2-4 bpm lower than the formula output.</p>
+        </div>
+
+        <h2>Accuracy &amp; Limitations</h2>
+        <p>No single equation is perfect because hydration, temperature, terrain, and stress can shift heart rate on a given day. Wrist optical sensors from Garmin or COROS can also read low or high during cold starts and fast arm-swing changes.</p>
+        <p>Use this as a starting range, then validate with your long easy sessions and adjust if your effort consistently feels too easy or too taxing. For full-zone planning, pair this with the <a href="hr-zones-calculator.html">Heart Rate Zones Calculator</a>.</p>
+
+        <h2>Real-World Examples</h2>
+        <p>A runner using age-based Zone 2 at 118-131 bpm felt underloaded and saw no aerobic progress. After testing LTHR at 170 bpm, their 85-89% range shifted to 145-151 bpm, making long runs productive while still conversational.</p>
+        <p>Another athlete using Karvonen with max 192 and resting 52 got a realistic Zone 2 band for trail days, then lowered the cap by 3 bpm in summer heat to maintain the same effort quality.</p>
+
+        <h2>FAQ</h2>
+        <h3>Why does Garmin Zone 2 feel easier than this calculator?</h3>
+        <p>Garmin often starts with generalized zone presets unless you manually set max HR or threshold values. Personalized methods like LTHR and Karvonen usually track experienced runners better.</p>
+        <h3>When should I use the LTHR method?</h3>
+        <p>Use it when you have a reliable threshold heart-rate value from a recent test or race effort. It is typically the most specific method for structured run training.</p>
+        <h3>Should Zone 2 stay the same all year?</h3>
+        <p>No. Recheck every training block or after major fitness changes, and adjust for climate or fatigue so easy days remain truly aerobic.</p>
+      </article>
     </div>
   </main>
 

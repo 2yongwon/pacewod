@@ -149,83 +149,41 @@
                 <div class="label">MET</div>
               </div>
             </div>
+            <h3 class="results-subhead">Per-Kilometer Breakdown</h3>
+            <div class="cal-breakdown" id="cal-breakdown"></div>
           </div>
           <p id="cal-placeholder" style="color: var(--text-muted);">Enter weight, distance, and pace to estimate calories burned.</p>
           <p class="tool-disclaimer">Calorie estimates are approximate. Actual burn varies with terrain, weather, fitness level, and running efficiency.</p>
         </div>
       </div>
 
-      <article class="blog-content">
-        <h2>How This Running Calories Calculator Works</h2>
-        <p>This tool estimates the number of calories you burn during a run using three inputs: your body weight in kilograms, the distance covered in kilometers, and your average pace in minutes per kilometer. Together, these variables determine how long you ran and how hard your body worked during that effort.</p>
-        <p>The calculation is based on MET values — metabolic equivalents of task — which are standardized measures of energy expenditure published in exercise physiology research. Running MET values increase with speed: easy jogging costs less energy per minute than fast tempo running, but you also spend more total minutes on the road when running slowly.</p>
-        <p>The formula used is straightforward: <strong>calories burned = MET × body weight (kg) × duration (hours)</strong>. Pace determines your running speed, which maps to a MET value. Distance and pace together give total duration. The result is rounded to the nearest whole calorie and displayed alongside calories per kilometer and estimated run time.</p>
-        <p>For a complete picture of your running performance, pair this tool with our <a href="pace-calculator.html">Pace Calculator</a> to convert finish times and distances, or the <a href="vo2max-calculator.html">VO2 Max &amp; VDOT Calculator</a> to assess your aerobic fitness from race results.</p>
+      <article class="tool-guide">
+        <h2>How It Works</h2>
+        <p>This calculator estimates running energy cost from body weight, distance, and pace. Pace determines speed, speed maps to a MET value, and the formula combines MET with body weight and run duration to estimate total kilocalories.</p>
+        <p>Output includes total calories, calories per kilometer, and estimated duration so you can compare short hard runs against longer easy sessions. It is especially useful for planning weekly volume and fueling strategy alongside your aerobic work in the <a href="zone2-calculator.html">Zone 2 Calculator</a>.</p>
+        <div class="expert-note">
+          <strong>Expert Note</strong>
+          <p>Use calorie numbers to guide trends over multiple weeks, not to "earn" or remove food after a single run. Consistent fueling improves recovery and training quality.</p>
+        </div>
 
-        <h2>Why Body Weight and Distance Matter</h2>
-        <p>Body weight is the single largest factor you control that affects running calorie burn. Moving a heavier mass over any distance requires more mechanical work — your muscles must generate greater force with each stride, and your cardiovascular system must deliver more oxygen to support that effort. Doubling body weight does not double calorie burn exactly, but a runner who weighs 85 kg will consistently burn more calories than a 65 kg runner covering the same route at the same pace.</p>
-        <p>Distance is equally fundamental because calorie expenditure accumulates over time and steps taken. A 10K run at easy pace burns roughly twice as many calories as a 5K at the same pace, assuming similar conditions. This linear relationship makes distance the most reliable predictor of total energy cost for steady-state running.</p>
-        <h3>What the numbers mean in practice</h3>
-        <p>If you weigh 70 kg and run 8 km at a conversational pace of roughly 6:30 per kilometer, you can expect to burn approximately 480–520 kcal depending on exact speed. Increase the distance to a half marathon without changing pace, and total burn rises proportionally to around 1,050–1,150 kcal. These are estimates — your actual expenditure depends on additional factors discussed below.</p>
+        <h2>Accuracy &amp; Limitations</h2>
+        <p>Like all running calorie tools, this is an estimate. MET-based models are solid for planning, but real expenditure shifts with terrain, weather, biomechanics, and sensor quality.</p>
+        <p>Garmin and Apple Watch calorie readouts may differ from this result because wearables combine heart rate, movement, and proprietary algorithms. In steady outdoor runs, watch values and MET estimates are often close, but interval sessions, trails, and wrist-sensor lag can widen the gap.</p>
 
-        <h2>Does Running Pace Change Calories Burned?</h2>
-        <p>Yes, but the effect is often misunderstood. Faster running increases energy cost per minute because your muscles work harder and your heart rate climbs. However, a faster pace also means you finish sooner, which partially offsets the higher per-minute burn.</p>
-        <p>Over a fixed distance — say 10 km — running at 5:30/km pace burns more total calories than running at 7:00/km pace, but typically only 5–15% more, not double. The MET scale reflects this: jogging at 8 km/h might register around 8 METs, while running at 12 km/h registers closer to 12 METs. The difference is meaningful for training load tracking but smaller than many runners assume.</p>
-        <h3>Intensity vs. duration trade-off</h3>
-        <p>A 45-minute easy run and a 30-minute tempo run may burn similar total calories despite feeling very different. Easy runs accumulate duration; hard runs accumulate intensity. For weight management and general fitness, total weekly volume often matters more than the pace of any single session. Training in <a href="zone2-calculator.html">Zone 2 heart rate</a> allows longer durations at moderate calorie burn, building aerobic capacity without excessive fatigue.</p>
+        <h2>Real-World Examples</h2>
+        <p><strong>10K easy run:</strong> A 70 kg runner at 6:00/km typically lands around the mid-700 kcal range. This is useful for long-run fueling and post-run meal planning.</p>
+        <p><strong>5K tempo vs easy:</strong> Over the same 5K, a faster effort usually burns only moderately more total calories than easy pace, but creates more recovery cost and fatigue.</p>
+        <p><strong>Wearable comparison:</strong> If Garmin reports 610 kcal and this calculator shows 580 kcal for the same run, treat both as reasonable bounds and track your rolling weekly average instead of chasing single-run precision.</p>
 
-        <h2>Running Calories by Distance Examples</h2>
-        <p>The following examples assume a 70 kg runner on flat road at moderate temperatures. Actual values vary — use the calculator above with your own stats for personalized results.</p>
-        <ul>
-          <li><strong>5K at 6:00/km pace</strong> — approximately 30 minutes, ~385 kcal total, ~77 kcal per km</li>
-          <li><strong>5K at 5:00/km pace</strong> — approximately 25 minutes, ~395 kcal total, ~79 kcal per km</li>
-          <li><strong>10K at 6:00/km pace</strong> — approximately 60 minutes, ~770 kcal total, ~77 kcal per km</li>
-          <li><strong>Half marathon at 6:00/km pace</strong> — approximately 2 hours 6 minutes, ~1,620 kcal total</li>
-          <li><strong>Easy 45-minute run at 7:00/km pace</strong> — approximately 6.4 km, ~430 kcal total</li>
-        </ul>
-        <p>Notice that calories per kilometer stay relatively stable across easy to moderate paces for the same runner. The primary driver of total burn on any given run is how far you go and how much you weigh, not whether you ran 30 seconds per kilometer faster.</p>
+        <h2>FAQ</h2>
+        <h3>Why is my Apple Watch calorie number different?</h3>
+        <p>Apple Watch uses heart rate and motion signals in addition to pace, while this tool uses a MET model from pace, distance, and body weight. Different inputs produce different estimates, especially on hilly or stop-start runs.</p>
 
-        <h2>How Accurate Is This Calculator?</h2>
-        <p>Calorie estimates from any running calculator — including this one, GPS watches, and treadmill displays — are approximations, not laboratory measurements. The MET-based method used here is widely accepted in exercise science and produces results within a reasonable range for most recreational runners on flat terrain. Individual variation of 10–20% in either direction is normal.</p>
-        <p>Several factors can shift actual calorie burn away from the estimate:</p>
-        <ul>
-          <li><strong>Terrain</strong> — Hills, trails, sand, and soft surfaces increase energy cost significantly compared to flat pavement.</li>
-          <li><strong>Running efficiency</strong> — Experienced runners with good form use less energy at a given pace than beginners with higher vertical oscillation and braking forces.</li>
-          <li><strong>Weather</strong> — Heat, humidity, cold, and wind all affect thermoregulation and oxygen demand.</li>
-          <li><strong>Fitness level</strong> — Better-conditioned runners may burn slightly fewer calories at the same pace due to improved biomechanics and metabolic efficiency.</li>
-          <li><strong>Body composition</strong> — Two people at the same weight may differ in muscle mass, which influences energy metabolism.</li>
-        </ul>
-        <p>Treat the output as a useful planning number — not a precise ledger entry. For nutrition and weight management, tracking trends over weeks is far more reliable than obsessing over a single run's calorie count.</p>
+        <h3>Does pace matter less than distance for calorie burn?</h3>
+        <p>For most steady runs, yes. Over fixed distance, faster pace raises calorie burn somewhat, but body weight and distance usually explain most of the total calorie difference.</p>
 
-        <h2>Tips to Burn More Calories Safely</h2>
-        <p>Increasing calorie burn through running should prioritize consistency and injury prevention over any single heroic effort. Sustainable approaches produce better long-term results than extreme sessions that lead to burnout or overuse injuries.</p>
-        <h3>Increase distance gradually</h3>
-        <p>Adding one extra kilometer to your weekly long run burns more calories than speeding up every easy day. Follow the 10% rule: increase total weekly mileage by no more than 10% per week to allow tendons, bones, and muscles to adapt.</p>
-        <h3>Add easy volume in Zone 2</h3>
-        <p>Low-intensity running builds aerobic base and allows high weekly mileage without excessive stress. Use the <a href="zone2-calculator.html">Zone 2 Calculator</a> to find your easy-run heart rate range and accumulate duration at a sustainable effort.</p>
-        <h3>Include one quality session per week</h3>
-        <p>Tempo runs, intervals, and hill repeats raise per-minute calorie burn and improve fitness. Limit hard efforts to one or two sessions weekly, surrounded by easy running and rest days.</p>
-        <h3>Cross-train on rest days</h3>
-        <p>Walking, cycling, and strength training add calorie expenditure without the impact load of additional running miles. Stronger legs and core also improve running economy over time.</p>
-        <h3>Do not under-fuel hard training</h3>
-        <p>Chronic under-eating while increasing mileage impairs recovery and raises injury risk. Calorie estimates help you understand energy demands — use them to fuel appropriately, not to restrict recklessly.</p>
-
-        <h2>Frequently Asked Questions</h2>
-
-        <h3>How many calories do you burn running 5K?</h3>
-        <p>For a 70 kg runner completing a 5K in about 30 minutes at 6:00/km pace, expect roughly 380–400 kcal. A lighter runner at 60 kg might burn around 330 kcal for the same effort, while a heavier runner at 85 kg might burn closer to 470 kcal. Enter your weight, distance, and pace in the calculator above for a personalized estimate.</p>
-
-        <h3>Does running faster burn more calories?</h3>
-        <p>Yes, faster running increases energy cost per minute because your muscles and cardiovascular system work harder. Over the same distance, however, you finish sooner — so total calorie burn increases modestly, typically 5–15% comparing a tempo pace to an easy pace over 10K. Speed work is valuable for fitness, but easy mileage contributes more to total weekly calorie expenditure for most runners.</p>
-
-        <h3>Is this calculator accurate?</h3>
-        <p>It provides a scientifically grounded estimate using published MET values for running speed, multiplied by your body weight and run duration. No online calculator can account for every individual variable — terrain, heat, running form, and fitness all introduce error. Expect results accurate within roughly 10–20% for flat road running under normal conditions. GPS watches use similar methods and show similar variation.</p>
-
-        <h3>Do heavier runners burn more calories?</h3>
-        <p>Yes. Calorie burn scales directly with body mass in the MET formula. A runner weighing 85 kg burns approximately 21% more calories than a 70 kg runner at the same pace and distance. This is why weight loss through running often accelerates initially — as body mass decreases, the same run burns slightly fewer calories, which is one reason plateaus occur and why dietary habits remain essential.</p>
-
-        <h3>Should I use this for weight loss planning?</h3>
-        <p>Use it as a general guide alongside broader nutrition and training habits, not as a precise daily accounting tool. A single run's calorie estimate does not capture post-exercise metabolism, daily activity, or food intake. Sustainable weight loss depends on a moderate calorie deficit maintained over weeks and months — combining regular running with balanced eating and adequate recovery. Consult a registered dietitian or sports nutritionist for personalized advice if weight management is a primary goal.</p>
+        <h3>Should I use this for weight-loss targets?</h3>
+        <p>Use it as a planning reference, then evaluate progress with body-weight trends, training quality, and recovery markers over several weeks. Daily calorie estimates are too noisy to be a standalone target.</p>
       </article>
     </div>
   </main>
