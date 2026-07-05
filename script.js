@@ -233,22 +233,30 @@
 
       document.getElementById("vo2-value").textContent = vo2;
       document.getElementById("vo2-rating").textContent = rating.label;
-      document.getElementById("vo2-details").innerHTML = `
-        <div class="result-item"><div class="value">${rating.poor}+</div><div class="label">Poor</div></div>
-        <div class="result-item"><div class="value">${rating.fair}+</div><div class="label">Fair</div></div>
-        <div class="result-item highlight"><div class="value">${rating.good}+</div><div class="label">Good</div></div>
-        <div class="result-item"><div class="value">${rating.excellent}+</div><div class="label">Excellent</div></div>
-      `;
+      document.getElementById("vo2-details").innerHTML = VO2_LEVELS.map((level, index) => {
+        const highlight = rating.index === index ? " highlight" : "";
+        return `<div class="result-item${highlight}">
+          <div class="value">${level.range}</div>
+          <div class="label">${level.label} · ${level.desc}</div>
+        </div>`;
+      }).join("");
 
       document.getElementById("vo2-placeholder").hidden = true;
       document.getElementById("vo2-results").hidden = false;
     });
 
+    const VO2_LEVELS = [
+      { range: "<35", label: "Running Beginner", desc: "Building basic aerobic fitness" },
+      { range: "35–44.9", label: "Recreational Runner", desc: "Solid fitness for casual running" },
+      { range: "45–54.9", label: "Running Enthusiast", desc: "Strong aerobic fitness for regular runners" },
+      { range: "55+", label: "Competitive / Athlete Level", desc: "High performance endurance level" },
+    ];
+
     function getVo2Rating(vo2) {
-      if (vo2 >= 52) return { label: "Excellent", poor: 30, fair: 38, good: 45, excellent: 52 };
-      if (vo2 >= 45) return { label: "Good", poor: 30, fair: 38, good: 45, excellent: 52 };
-      if (vo2 >= 38) return { label: "Fair", poor: 30, fair: 38, good: 45, excellent: 52 };
-      return { label: "Poor", poor: 30, fair: 38, good: 45, excellent: 52 };
+      if (vo2 >= 55) return { label: "Competitive / Athlete Level", index: 3 };
+      if (vo2 >= 45) return { label: "Running Enthusiast", index: 2 };
+      if (vo2 >= 35) return { label: "Recreational Runner", index: 1 };
+      return { label: "Running Beginner", index: 0 };
     }
   }
 
