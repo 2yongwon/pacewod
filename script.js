@@ -817,7 +817,12 @@
       const format = document.getElementById("wod-format").value;
       const difficulty = document.getElementById("wod-difficulty")?.value || "rx";
       const duration = parseInt(document.getElementById("wod-duration").value, 10) || 12;
-      const numMovements = parseInt(document.getElementById("wod-movements-count").value, 10) || 4;
+      const requestedRaw = parseInt(document.getElementById("wod-movements-count").value, 10) || 4;
+      const targetCount = Math.min(Math.max(requestedRaw, 2), 4);
+      const movementsInput = document.getElementById("wod-movements-count");
+      if (movementsInput && requestedRaw !== targetCount) {
+        movementsInput.value = targetCount;
+      }
       const checked = [...document.querySelectorAll('input[name="wod-equipment"]:checked')].map((el) => el.value);
 
       if (checked.length === 0) return;
@@ -825,10 +830,12 @@
       const pool = movementCatalog.filter((m) => checked.includes(m.equipment));
       const isCardioOnly = checked.length === 1 && checked[0] === "cardio";
       const selected = isCardioOnly
-        ? selectCardioOnlyMovements(pool, numMovements)
-        : selectBalancedMovements(pool, numMovements);
+        ? selectCardioOnlyMovements(pool, targetCount)
+        : selectBalancedMovements(pool, targetCount);
 
       if (selected.length === 0) return;
+
+      const adjustedForEquipment = selected.length < targetCount;
 
       const wodMovements = selected.map((m) => ({
         name: m.name,
@@ -859,6 +866,7 @@
           `
           )
           .join("")}
+        ${adjustedForEquipment ? '<p class="note">Movement count adjusted based on available equipment.</p>' : ""}
         <p class="note">Weights are general references. Adjust based on strength, skill, and safety.</p>
       `;
 
@@ -908,6 +916,7 @@
     }
 
     function selectBalancedMovements(pool, count) {
+      const effectiveCount = Math.min(count, pool.length);
       const byPattern = {};
       pool.forEach((m) => {
         if (!byPattern[m.pattern]) byPattern[m.pattern] = [];
@@ -919,12 +928,22 @@
       const usedPatterns = new Set();
 
       /* Prefer a balanced mix: one movement per pattern, max one cardio. */
-      const priority = buildPatternPriority(availablePatterns, count);
+      const priority = buildPatternPriority(availablePatterns, effectiveCount);
       for (const pattern of priority) {
-        if (selected.length >= count) break;
+        if (selected.length >= effectiveCount) break;
         if (usedPatterns.has(pattern)) continue;
         selected.push(randPick(byPattern[pattern]));
         usedPatterns.add(pattern);
+      }
+
+      if (selected.length < effectiveCount) {
+        const usedNames = new Set(selected.map((m) => m.name));
+        for (const movement of shuffle(pool)) {
+          if (selected.length >= effectiveCount) break;
+          if (usedNames.has(movement.name)) continue;
+          selected.push(movement);
+          usedNames.add(movement.name);
+        }
       }
 
       return shuffle(selected);
