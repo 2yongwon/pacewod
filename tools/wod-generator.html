@@ -14,6 +14,106 @@
   <meta property="og:url" content="https://pacewod.com/tools/wod-generator.html">
   <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="../style.css">
+  <style>
+    .coach-wods {
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .coach-wods-intro {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 640px;
+      margin: -0.75rem 0 1.75rem;
+      line-height: 1.6;
+    }
+
+    .coach-wod-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .coach-wod-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .coach-wod-card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem 1rem;
+    }
+
+    .coach-wod-card h3 {
+      font-size: 1.15rem;
+      margin: 0;
+    }
+
+    .coach-wod-workout {
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      white-space: pre-wrap;
+      margin: 0;
+      padding: 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+    }
+
+    .coach-wod-details {
+      display: grid;
+      gap: 0.75rem;
+      margin: 0;
+    }
+
+    .coach-wod-details div {
+      display: grid;
+      gap: 0.2rem;
+    }
+
+    .coach-wod-details dt {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .coach-wod-details dd {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--text);
+    }
+
+    .coach-wod-details dd.placeholder {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .coach-wod-details ul {
+      margin: 0;
+      padding-left: 1.15rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--text);
+    }
+
+    .coach-wod-details li + li {
+      margin-top: 0.25rem;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -106,6 +206,114 @@
           <p id="wod-placeholder" style="color: var(--text-muted);">Select equipment and hit Generate to get a workout.</p>
         </div>
       </div>
+
+      <!-- COACH WODS: Edit names, workouts, and results below -->
+      <section class="coach-wods" aria-labelledby="coach-wods-title">
+        <h2 class="section-title" id="coach-wods-title">🔥 Personally Tested WODs</h2>
+        <p class="coach-wods-intro">Fixed workouts I have run myself — not random. Swap in your own times and notes as you retest them.</p>
+
+        <div class="coach-wod-grid">
+
+          <!-- COACH WOD 1: Row, Pull & Core Survival -->
+          <article class="coach-wod-card">
+            <header class="coach-wod-card-header">
+              <h3>Row, Pull &amp; Core Survival</h3>
+              <span class="tag">4 Rounds · 4:00 On / 1:00 Off</span>
+            </header>
+            <pre class="coach-wod-workout">4 Rounds — 4:00 On / 1:00 Off
+300 m Row
+10 Deadlifts (185 lb)
+10 Burpees Over Bar
+10 Pull-ups
+Max Toes-to-Bar in remaining time</pre>
+            <dl class="coach-wod-details">
+              <div>
+                <dt>Rule</dt>
+                <dd>DNF if you fail to complete the required work in any round.</dd>
+              </div>
+              <div>
+                <dt>My result</dt>
+                <dd>23 total Toes-to-Bar<br>(5 reps each round × 4 rounds, plus extra reps)</dd>
+              </div>
+              <div>
+                <dt>Difficulty</dt>
+                <dd>Advanced</dd>
+              </div>
+              <div>
+                <dt>Focus</dt>
+                <dd>Rowing, posterior chain, gymnastics pulling, core endurance</dd>
+              </div>
+              <div>
+                <dt>Why I recommend it</dt>
+                <dd>This WOD forces you to manage pacing under a strict time window. The deadlift and burpee combination raises fatigue quickly, while the pull-ups and max T2B test grip and midline endurance.</dd>
+              </div>
+              <div>
+                <dt>Scaling tips</dt>
+                <dd>
+                  <ul>
+                    <li>Reduce deadlift load to 135/95 lb</li>
+                    <li>Use jumping pull-ups or ring rows</li>
+                    <li>Replace T2B with hanging knee raises</li>
+                    <li>Lower the row distance to 250 m if needed</li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+          </article>
+
+          <!-- COACH WOD 2: Front Squat Engine Test -->
+          <article class="coach-wod-card">
+            <header class="coach-wod-card-header">
+              <h3>Front Squat Engine Test</h3>
+              <span class="tag">4 Rounds · Every 5:00</span>
+            </header>
+            <pre class="coach-wod-workout">4 Rounds — Every 5:00
+9 cal Row
+10 Front Squats (115 lb)
+10 Burpees Over Bar
+5 Thrusters (115 lb)
+12 cal Row</pre>
+            <dl class="coach-wod-details">
+              <div>
+                <dt>Target</dt>
+                <dd>Under 3:00 each round</dd>
+              </div>
+              <div>
+                <dt>Time cap</dt>
+                <dd>4:00 each round</dd>
+              </div>
+              <div>
+                <dt>My result</dt>
+                <dd class="placeholder">[YOUR RESULT — e.g. 4 rounds under 3:00]</dd>
+              </div>
+              <div>
+                <dt>Difficulty</dt>
+                <dd>Intermediate to Advanced</dd>
+              </div>
+              <div>
+                <dt>Focus</dt>
+                <dd>Leg stamina, barbell cycling, rowing capacity, breathing control</dd>
+              </div>
+              <div>
+                <dt>Why I recommend it</dt>
+                <dd>This WOD is a great test of barbell stamina and aerobic recovery. The front squat and thruster pairing creates heavy leg fatigue, while the two rowing segments force athletes to control breathing before and after barbell work.</dd>
+              </div>
+              <div>
+                <dt>Scaling tips</dt>
+                <dd>
+                  <ul>
+                    <li>Reduce barbell load to 95/65 lb or 75/55 lb</li>
+                    <li>Reduce burpees to 6–8 reps</li>
+                    <li>Reduce row calories if the target time is unrealistic</li>
+                    <li>Keep at least 60 seconds of rest each round if possible</li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+          </article>
+
+        </div>
+      </section>
     </div>
   </main>
 
