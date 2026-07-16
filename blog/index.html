@@ -53,7 +53,40 @@
       </div>
 
       <article class="blog-content" style="max-width: none;">
-        <div class="expert-note" style="margin-top: 0;">
+        <section class="blog-intro-editorial">
+          <h2>How to Use These Guides</h2>
+          <p>PaceWOD is not a generic fitness blog. Every article here is written for athletes who train with data — pace splits, heart rate zones, watch metrics, race results — and want to know <em>when to trust the number</em> and when to question it. We built the site around a simple problem: your Garmin, COROS, and Apple Watch give you more data than most training plans know how to interpret. Our guides close that gap.</p>
+
+          <h3>What Makes PaceWOD Different</h3>
+          <p>Most fitness content stops at "run easy" or "do intervals." We start where those instructions break down. Why does your easy run drift into zone 3 on a hot day? Why does Garmin predict a 3:45 marathon from a hilly 10K? Why does VO2 max on your watch drop after your best race week? Each guide names the formula, device behavior, or physiological mechanism behind the confusion — then gives you a decision rule.</p>
+          <p>Content falls into three layers that work together:</p>
+          <ul>
+            <li><strong>Guides</strong> explain concepts — zone 2 physiology, VO2 max pacing, EMOM structure, race-day fueling</li>
+            <li><strong>Training plans</strong> apply those concepts across 8–16 weeks with explicit paces, HR ranges, and adjustment rules</li>
+            <li><strong>Tools</strong> produce the numbers the guides reference — zone boundaries, race predictions, calorie estimates, WOD templates</li>
+          </ul>
+          <p>A guide without a tool gives theory without inputs. A tool without a guide gives numbers without context. Use both.</p>
+
+          <h3>Recommended Workflow</h3>
+          <p><strong>Step 1 — Establish baselines.</strong> Before reading training plans, calculate your zones with the <a href="../tools/zone2-calculator.html">Zone 2 Calculator</a> and <a href="../tools/heart-rate-zone-calculator.html">HR Zones Calculator</a>. Enter a recent race into the <a href="../tools/race-predictor.html">Race Predictor</a>. These outputs become the paces and HR ceilings referenced throughout the plans.</p>
+          <p><strong>Step 2 — Match guide to goal.</strong> Training for a half marathon? Read the <a href="running/easy-run-pace-guide.html">Easy Run Pace Guide</a> first — most plans fail because easy days are too hard, not because quality sessions are too easy. Chasing VO2 max? Read the wearable accuracy article before obsessing over weekly Garmin updates.</p>
+          <p><strong>Step 3 — Validate with real sessions.</strong> Run one week as written. Compare watch HR against perceived effort. If tempo HR exceeds 88% max before the prescribed duration ends, the plan's pace targets need adjustment — not your commitment. Our guides explicitly say when to scale back.</p>
+          <p><strong>Step 4 — Re-calibrate monthly.</strong> Race or time trial every 4–6 weeks. Update the calculators. Trends matter more than snapshots — a zone 2 pace that drops 8 sec/km over six weeks at the same HR is real progress, even if the watch VO2 max graph looks flat.</p>
+
+          <div class="expert-note">
+            <strong>Expert Note</strong>
+            <p>No PaceWOD article assumes lab-grade accuracy from consumer wearables. We treat wrist HR, estimated VO2 max, and race predictors as useful inputs with known error bars — not ground truth. When a guide cites a number, it includes the typical deviation (±3–8 bpm HR, ±3–5 ml/kg/min VO2, ±2–4 min race prediction over half marathon distance). Train with the range, not the point estimate.</p>
+          </div>
+
+          <h3>Who This Content Is For</h3>
+          <p>Recreational to competitive runners who own a GPS watch and want structured training without hiring a coach. CrossFit athletes who also run and need conditioning work that does not destroy leg freshness before long runs. Data-curious athletes who ask "why does this number disagree with that number?" instead of averaging them and hoping for the best.</p>
+          <p>If you prefer motivational posts about "listening to your body" without defining what that means in bpm or sec/km, this library will feel overly technical. If you have ever argued with your watch about whether you were really in zone 2, you are in the right place.</p>
+
+          <h3>Honest Limits</h3>
+          <p>We cite established methods — Daniels, Friel, Riegel, MET tables, Firstbeat whitepapers — and show our math. We also state what those methods cannot do. A race predictor does not know your fueling strategy. A zone calculator does not know your cardiac drift on hills. An EMOM template does not know your shoulder mobility. Guides tell you what to do when the formula and reality diverge.</p>
+        </section>
+
+        <div class="expert-note" style="margin-top: 2rem;">
           <strong>How we write</strong>
           <p>Every PaceWOD article explains <em>why</em> a number differs between your watch, a calculator, and lab testing — then tells you which one to train with. We cite methods (Riegel, Daniels, Friel, MET), show real scenarios, and link to the tool that produced the estimate.</p>
         </div>
@@ -105,10 +138,11 @@
               <p>Why “fat burn zone” on your watch is misleading — and what zone 2 actually does.</p>
               <a href="running/best-heart-rate-for-fat-burn.html" class="card-link">Read →</a>
             </article>
-            <article class="card card-soon">
-              <span class="tag">Coming soon</span>
-              <h3>Zone 2 Based on LTHR vs Max HR</h3>
+            <article class="card">
+              <span class="tag">Zones</span>
+              <h3>Zone 2: LTHR vs Max HR</h3>
               <p>Side-by-side ranges for the same athlete — and why Garmin defaults often feel too low.</p>
+              <a href="running/zone-2-lthr-vs-max-hr.html" class="card-link">Read →</a>
             </article>
           </div>
         </section>
@@ -117,10 +151,11 @@
           <h2>Wearable &amp; Device Analytics</h2>
           <p class="pillar-desc">Garmin, COROS, Apple Watch — accuracy limits and how to interpret conflicting data.</p>
           <div class="card-grid">
-            <article class="card card-soon">
-              <span class="tag">Coming soon</span>
+            <article class="card">
+              <span class="tag">Wearables</span>
               <h3>Garmin vs COROS Heart Rate Accuracy</h3>
               <p>Chest strap ground truth, wrist optical failure modes, and when to trust each device.</p>
+              <a href="running/garmin-vs-coros-heart-rate-accuracy.html" class="card-link">Read →</a>
             </article>
             <article class="card">
               <span class="tag">Wearables</span>
@@ -239,6 +274,7 @@
         <li><a href="../about.html">About</a></li>
         <li><a href="../contact.html">Contact</a></li>
         <li><a href="../privacy-policy.html">Privacy</a></li>
+        <li><a href="../terms-of-service.html">Terms</a></li>
         <li><a href="../tools/pace-calculator.html">Tools</a></li>
       </ul>
     </div>

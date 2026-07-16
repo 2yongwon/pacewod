@@ -12,8 +12,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Heart Rate Zone Calculator — PaceWOD</title>
-  <meta name="description" content="Calculate all 5 heart rate training zones using standard, Karvonen, or measured max HR methods.">
+  <title>Quick Heart Rate Zone Reference — PaceWOD</title>
+  <meta name="description" content="Fast 5-zone heart rate reference by age or measured max HR. See what to do in each zone — easy runs, tempo, threshold, and intervals.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://pacewod.com/tools/heart-rate-zone-calculator.html">
   <meta property="og:type" content="website">
@@ -48,8 +48,8 @@
   <main>
     <div class="container">
       <div class="page-header">
-        <h1>Heart Rate Zone Calculator</h1>
-        <p>Calculate all five heart rate training zones for easy runs, tempo, threshold, and interval work.</p>
+        <h1>Quick Heart Rate Zone Reference</h1>
+        <p>Fast five-zone breakdown from age or measured max HR. For Karvonen, LTHR, and full training guidance, use the <a href="hr-zones-calculator.html">Heart Rate Zones Calculator</a>.</p>
       </div>
 
       <div class="tool-layout">
@@ -91,6 +91,39 @@
           <p id="hrz-placeholder" style="color: var(--text-muted);">Enter your age to calculate all heart rate zones.</p>
         </div>
       </div>
+      <article class="tool-guide">
+        <h2>How Heart Rate Zones Work</h2>
+        <p>This calculator maps five training zones from your age, resting HR, or measured max HR. Zone 1 is recovery; Zone 2 is aerobic base; Zone 3 is moderate steady state; Zone 4 is threshold; Zone 5 is VO2 and neuromuscular work. Boundaries shift depending on whether you use the simple 220 − age formula, Karvonen heart rate reserve, or a lab-tested max HR.</p>
+
+        <div class="expert-note">
+          <strong>Expert Note</strong>
+          <p>Garmin and COROS ship with preset zone percentages that may not match your physiology. If easy runs feel too hard in Zone 2 or tempo work never reaches Zone 4, re-check your max HR and consider lactate threshold testing instead of accepting factory defaults.</p>
+        </div>
+
+        <h2>Which Method Should You Use?</h2>
+        <p><strong>Standard (220 − age):</strong> Fast estimate for beginners. Error can be ±10–15 bpm versus true max HR.</p>
+        <p><strong>Karvonen (HRR):</strong> Accounts for resting HR — better for athletes with low resting HR or high fitness for age.</p>
+        <p><strong>Measured max HR:</strong> Best when you have a recent max-HR field test or lab result. Re-test every 1–2 years.</p>
+
+        <h2>What to Do in Each Zone</h2>
+        <p>Zones are only useful when tied to session type. After calculating your ranges above, match each zone to a concrete workout:</p>
+        <ul>
+          <li><strong>Zone 1 (Recovery):</strong> 20–40 min shuffle after hard races or between double sessions. HR should feel effortless.</li>
+          <li><strong>Zone 2 (Aerobic base):</strong> Majority of weekly volume — easy runs, long run bulk. If HR drifts into zone 3 on flat terrain, slow down.</li>
+          <li><strong>Zone 3 (Moderate):</strong> Steady runs, marathon-pace segments on tired legs. Useful but easy to overuse — caps at 10–15% of weekly time for most runners.</li>
+          <li><strong>Zone 4 (Threshold):</strong> Tempo blocks, cruise intervals (2–3 × 10–15 min). Sustainable "comfortably hard" — not 5K race effort.</li>
+          <li><strong>Zone 5 (VO2+):</strong> Short intervals (3–5 min reps) with full recovery. Neuromuscular and VO2 stimulus — 1 session per week max for most athletes.</li>
+        </ul>
+
+        <h2>Accuracy &amp; Limitations</h2>
+        <p>Wrist optical sensors lag during intervals and cold starts. Zone boundaries are ranges, not single numbers — a 5 bpm buffer on easy days prevents gray-zone drift. Read our <a href="../blog/running/zone2-vs-zone3-running.html">Zone 2 vs Zone 3 guide</a> for how to apply zones in weekly training.</p>
+
+        <h2>FAQ</h2>
+        <h3>Why does my watch show a different Zone 2 than this calculator?</h3>
+        <p>Watches often use LTHR-based zones or custom percentages. Align your watch settings with the method you trust, not whichever number appears first.</p>
+        <h3>Should I use LTHR instead of max HR?</h3>
+        <p>If you have a reliable threshold test, LTHR-based zones usually track training intent better than 220 − age. See <a href="../blog/running/zone-2-lthr-vs-max-hr.html">Zone 2: LTHR vs Max HR</a>.</p>
+      </article>
     </div>
   </main>
 
@@ -112,7 +145,8 @@
       <ul class="footer-links">
         <li><a href="../about.html">About</a></li>
         <li><a href="../contact.html">Contact</a></li>
-        <li><a href="../privacy-policy.html">Privacy</a></li>
+<li><a href="../privacy-policy.html">Privacy</a></li>
+        <li><a href="../terms-of-service.html">Terms</a></li>
         <li><a href="zone2-calculator.html">Tools</a></li>
         <li><a href="../blog/running/zone-2-running-guide.html">Zone 2 Guide</a></li>
       </ul>

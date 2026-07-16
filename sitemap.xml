@@ -199,7 +199,31 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://www.pacewod.com/blog/crossfit/best-emom-workouts.html</loc>
+    <loc>https://www.pacewod.com/terms-of-service.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.pacewod.com/blog/running/zone-2-lthr-vs-max-hr.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.pacewod.com/blog/running/garmin-vs-coros-heart-rate-accuracy.html</loc>
+    <lastmod>2026-07-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.pacewod.com/blog/running/why-garmin-vo2max-differs-from-lab-tests.html</loc>
+    <lastmod>2026-07-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.pacewod.com/blog/running/why-race-predictors-are-often-wrong.html</loc>
     <lastmod>2026-07-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
