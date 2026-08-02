@@ -1,0 +1,2 @@
+# www → non-www (matches canonical tags on all pages)
+https://www.pacewod.com/*  https://pacewod.com/:splat  301!
