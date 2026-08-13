@@ -34,7 +34,7 @@
     "author": { "@type": "Organization", "name": "PaceWOD" },
     "publisher": { "@type": "Organization", "name": "PaceWOD", "url": "https://pacewod.com/" },
     "datePublished": "2026-07-12",
-    "dateModified": "2026-07-12",
+    "dateModified": "2026-08-13",
     "mainEntityOfPage": "https://pacewod.com/blog/running/why-race-predictors-are-often-wrong.html"
   }
   </script>
@@ -66,74 +66,33 @@
         <div class="page-header">
           <span class="tag">Running Science</span>
           <h1>Why Race Predictors Are Often Wrong</h1>
-          <p class="blog-meta">Updated July 2026 · 11 min read</p>
+          <p class="blog-meta">Updated August 2026 · 4 min read</p>
         </div>
 
-        <p>Your Garmin race predictor says 3:35 marathon. You run 3:48. Your COROS equivalent-time chart looks optimistic after a fast 5K. The <a href="../../tools/race-predictor.html">PaceWOD Race Predictor</a> spits out a half-marathon projection that feels perfect on paper — then race day adds ten minutes.</p>
-        <p>That gap is normal. <strong>Running performance prediction</strong> tools are useful, but they estimate what your recent data <em>could</em> support under favorable conditions. They do not guarantee a finish time. Understanding what each model actually measures — and what it ignores — keeps you from treating a watch number like a contract.</p>
+        <p>Your Garmin says 3:35 marathon. You run 3:48. A fast 5K makes COROS and the <a href="../../tools/race-predictor.html">PaceWOD Race Predictor</a> look optimistic for the half. That gap is normal. Predictors estimate what recent data <em>could</em> support under favorable conditions — not a guaranteed finish time.</p>
 
-        <h2>What Race Predictors Actually Model</h2>
-        <p>Most runners assume a race predictor is just VO2 max translated into pace. That is incomplete.</p>
-        <p>Garmin, COROS, and similar platforms combine several inputs: estimated VO2 max, recent race or time-trial results, training load, and sometimes heart-rate–pace relationships from logged runs. The Garmin race predictor, for example, weighs your current fitness estimate alongside actual performance data — not VO2 max in isolation.</p>
-        <p>Formula-based tools like the Riegel exponent used in our <a href="../../tools/race-predictor.html">Race Predictor</a> work differently. They extrapolate from one known result at one distance to another using a power-law curve. No watch required — but also no account of your long-run history or fueling plan.</p>
-        <p>VO2 max matters because it sets an upper bound on aerobic power. It cannot, by itself, explain race performance. Two athletes with identical VO2 max can finish minutes apart at the same distance because threshold, economy, durability, and execution differ. Treat VO2 max as one line on the spreadsheet — not the whole story.</p>
+        <h2>What Predictors Actually Model</h2>
+        <p>Watches blend estimated VO2 max, recent races or time trials, training load, and HR–pace relationships. Formula tools (Riegel: T₂ = T₁ × (D₂/D₁)^1.06) extrapolate from one result to another. VO2 max sets an aerobic ceiling; threshold, economy, durability, and execution decide the race. Two athletes with the same VO2 max can finish minutes apart.</p>
 
-        <h2>The Riegel Curve and Distance Extrapolation</h2>
-        <p>The Riegel formula (T₂ = T₁ × (D₂/D₁)^1.06) is the backbone of many marathon time prediction calculators. Exponent 1.06 assumes performance degrades predictably as distance grows. For trained runners with balanced preparation, it works reasonably well between 5K and 10K, and often between 10K and half marathon.</p>
-        <p>The curve gets shakier at the marathon. A 19:30 5K projects an aggressive marathon time if your training never included 18–22 mile long runs, marathon-pace segments, or race-day fueling practice. Many coaches add 3–8% to spreadsheet projections when anchoring a marathon goal off a short race — not because the math is wrong, but because the math assumes marathon-specific fitness already exists.</p>
-        <p>Use Riegel output as a starting range. Anchor longer predictions off the closest comparable distance: a half marathon predicts a marathon better than a 5K does.</p>
-
-        <h2>Lactate Threshold and Long-Distance Performance</h2>
-        <p>VO2 max tells you how big the engine is. <strong>Lactate threshold</strong> — the intensity you can sustain before lactate accumulates faster than you clear it — tells you how fast you can run before the engine overheats.</p>
-        <p>At 5K, you race close to VO2 max pace. Threshold fitness matters, but the event is short enough that top-end aerobic power dominates. At half marathon and marathon distances, the limiter shifts. You spend hours at or slightly below lactate threshold. A runner with moderate VO2 max but a high threshold relative to that max often outperforms a higher-VO2 runner who cannot hold sub-threshold pace efficiently for 90–120 minutes.</p>
-        <p>Most race predictors infer threshold indirectly from recent pace and heart rate data. They rarely know whether your last 10K was run on fresh legs after a taper, or mid-build with 50 miles in your legs. That is one reason half marathon and marathon predictions feel less reliable than 5K projections — the model is extrapolating an aerobic ceiling without fully measuring the sustainable pace you can hold for two to four hours.</p>
-
-        <h2>Running Economy</h2>
-        <p>Running economy is oxygen cost at a given speed — how much fuel the engine burns to maintain pace. It is one of the most underweighted variables in consumer running performance prediction.</p>
-        <p>Two runners with the same VO2 max can perform very differently because one consumes less oxygen at the same running pace. The economical runner holds 4:30/km at a lower heart rate, finishes fresher, and often runs closer to what a predictor expects. The less economical runner works harder at identical speed, fatigues earlier, and underperforms the spreadsheet — even with identical lab VO2 max and threshold values.</p>
-        <p>Economy improves with years of consistent running, strength work, cadence refinement, and race-pace practice. It does not show up cleanly in a single recent 5K result. Predictors that scale purely from finish time at one distance assume economy is already baked into that result — which is mostly true for the distance you raced, but not automatically transferable to a longer event with different mechanics and fatigue patterns.</p>
-
-        <h2>Weekly Mileage and Durability</h2>
-        <p>Race predictors see recent fast efforts. They do not see your full training log in enough detail to score muscular endurance, fatigue resistance, long-run adaptations, or durability over marathon distance.</p>
-        <p>A runner who logs 70 miles per week with regular 20-mile long runs carries structural and metabolic adaptations that a 35-mile-per-week runner with the same 10K PR does not — even if their VO2 max estimates match. Those adaptations include:</p>
+        <h2>Why Longer Predictions Miss More</h2>
         <ul>
-          <li><strong>Muscular endurance</strong> — quads, calves, and hip stabilizers that resist form breakdown after 30 km</li>
-          <li><strong>Fatigue resistance</strong> — the ability to hold pace when glycogen is low and heart rate drifts upward</li>
-          <li><strong>Long-run adaptations</strong> — capillary density, mitochondrial efficiency, and mental familiarity with time on feet</li>
-          <li><strong>Marathon durability</strong> — cumulative tissue resilience that no short race replicates</li>
+          <li><strong>Riegel stretch:</strong> 5K→10K is usually reasonable; 5K→marathon assumes marathon-specific fitness you may not have. Many coaches add ~3–8% when anchoring a marathon off a short race. Prefer the closest comparable distance (half → marathon beats 5K → marathon).</li>
+          <li><strong>Threshold &amp; economy:</strong> Half and marathon live near sustainable pace for hours. Predictors infer threshold indirectly and rarely know if your last 10K was tapered or mid-build.</li>
+          <li><strong>Mileage &amp; durability:</strong> Same 10K PR at 35 vs 70 mpw is not the same marathon. Load metrics ≠ long-run specificity.</li>
+          <li><strong>Environment:</strong> Heat, humidity, wind, altitude, and hills are usually outside the model. Hot dew-point marathons often cost 5–15 minutes vs cool flat predictions.</li>
+          <li><strong>Fueling:</strong> Models assume carbs are available. Rough glycogen stores (~1,800–2,200 kcal) cover ~90–120 minutes hard — not a full marathon at goal pace without 30–60 g carbs/hour (up to ~90 g/hr if gut-trained).</li>
         </ul>
-        <p>Watch algorithms partially capture training volume through load metrics, but load is not specificity. A high-training-load month of short intervals does not substitute for long-run preparation. If your marathon predictor looks optimistic, check whether your longest recent run supports the projected pace — not just whether your VO2 max ticked up.</p>
 
-        <h2>Environmental Factors</h2>
-        <p>Most prediction models assume ideal race conditions: cool weather, flat or gently rolling terrain, moderate humidity, and no headwind. Real races rarely cooperate.</p>
-
-        <h3>Heat and humidity</h3>
-        <p>Core temperature rises when ambient heat and humidity limit evaporative cooling. Heart rate climbs at the same pace. Runners who set predictions in 12°C spring weather often miss targets by 5–15 minutes in 24°C+ conditions with high dew point. Heat stress is nonlinear — small temperature jumps produce disproportionate pace losses over marathon duration.</p>
-
-        <h3>Headwind and altitude</h3>
-        <p>A sustained headwind increases oxygen cost at race pace without changing your fitness. Altitude reduces available oxygen; even 1,500–2,000 m affects performance if you are not acclimated. Predictors trained on sea-level, calm-day data cannot adjust for course-specific air resistance or partial pressure of oxygen unless you manually discount the target.</p>
-
-        <h3>Hilly courses</h3>
-        <p>Net elevation gain converts horizontal speed into vertical work. A "flat equivalent" marathon time from a predictor assumes you will run the same metabolic cost per kilometer on a hilly course — which understates effort on climbs and often leads to overcooking downhills early. Boston, Big Sur, and trail marathons routinely produce finish times slower than flat-course predictions from the same athlete.</p>
-        <p>When comparing your Garmin marathon predictor or spreadsheet output to a goal race, ask whether the course and forecast resemble the conditions baked into the model. If not, adjust expectations before you adjust pace on the start line.</p>
-
-        <h2>Race-Day Fueling</h2>
-        <p>Physiology gets you to the start line fit. Fueling gets you to the finish at the pace your fitness supports. Predictors assume adequate carbohydrate availability — and that assumption fails often.</p>
-        <p>During a marathon, muscle glycogen depletion is the primary cause of the late-race slowdown runners call <strong>hitting the wall</strong>. The body stores roughly 1,800–2,200 kcal of glycogen — enough for 90–120 minutes of hard running, not a full marathon at goal pace. Without carbohydrate intake during the race, blood glucose falls, pace collapses, and finish times drift far above prediction.</p>
-        <p>Practical fueling targets for marathon distance:</p>
-        <ul>
-          <li><strong>Carbohydrate intake:</strong> 30–60 g per hour for most runners; up to 90 g/hour for athletes who train the gut to tolerate it</li>
-          <li><strong>Hydration:</strong> enough fluid and electrolytes to limit excessive dehydration without overdrinking — typically 400–800 ml per hour depending on sweat rate and conditions</li>
-          <li><strong>Pre-race glycogen:</strong> consistent carb intake in the 24–36 hours before the start, not a single giant pasta dinner</li>
-        </ul>
-        <p>Poor fueling does not mean you lacked fitness. It means you could not access the fitness the predictor assumed. Runners who nail training but skip gel practice in long runs regularly miss predicted marathon times by 10+ minutes despite accurate VO2 max and strong threshold numbers. Fueling is trainable — and it belongs in the same conversation as mileage when you interpret a marathon predictor.</p>
-
-        <h2>Conclusion: How to Use Race Predictions</h2>
-        <p>Race predictors — whether on your Garmin, COROS, or a Riegel-based <strong>marathon predictor</strong> — estimate physiological potential under favorable assumptions. They are not guarantees.</p>
-        <p>In practice, they are generally more accurate for 5K and 10K than for half marathons or marathons. Shorter races involve fewer failure modes: less glycogen dependence, less heat accumulation, less time for pacing errors to compound. Longer races stack threshold demands, durability, fueling, weather, and course profile into a result that no single input race fully captures.</p>
-        <p>Use predictions as <strong>pacing guidance</strong>, not absolute goals. Start at or slightly inside the projected range if conditions are good and your training matches the distance. Add conservatism when anchoring a marathon off a 5K, when long-run volume is thin, when the forecast is hot, or when fueling is untested.</p>
-        <p>The best use of running performance prediction is directional: compare your watch trend over months, sanity-check ambition before you register, and set an A/B/C race plan. Race day still belongs to preparation, conditions, and execution — not the number on your wrist the week before.</p>
+        <h2>Practical Takeaway</h2>
+        <p>Use predictions as pacing guidance and A/B/C planning — more reliable for 5K/10K than half/marathon. Start near the projected range only if training matches the distance and conditions are good. Add conservatism for short-race anchors, thin long-run volume, heat, or untested fueling. Trends over months beat one optimistic number the week before.</p>
         <p><a href="../../tools/race-predictor.html">→ Project race times from a recent result</a></p>
+
+        <h2>FAQ</h2>
+        <h3>Why is my marathon predictor optimistic after a fast 5K?</h3>
+        <p>Riegel-style math assumes you already have marathon durability and fueling. Without long runs and race-pace practice, spreadsheet times run hot — add conservatism or anchor off a half marathon.</p>
+        <h3>Are watch predictors better than Riegel?</h3>
+        <p>They use more training data, but still miss weather, hills, and race-day fueling. Treat both as ranges, not contracts.</p>
+
       </article>
     </div>
   </main>
