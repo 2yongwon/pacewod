@@ -13,28 +13,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sleep Tracker Accuracy: Garmin, Apple Watch, COROS, WHOOP, and Oura Compared | PaceWOD</title>
-  <meta name="description" content="How accurate are Garmin, Apple Watch, COROS, WHOOP, and Oura sleep trackers vs PSG? Stage detection limits, total sleep time reliability, and when scores mislead training decisions.">
+  <meta name="description" content="Sleep tracker accuracy: why Garmin/Apple/Oura disagree on stages, what total sleep time gets right, and when scores should not change training.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://pacewod.com/blog/running/sleep-tracker-accuracy-guide.html">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="PaceWOD">
   <meta property="og:title" content="Sleep Tracker Accuracy: Garmin, Apple Watch, COROS, WHOOP, and Oura Compared">
-  <meta property="og:description" content="Consumer sleep trackers vs polysomnography: stage errors, total sleep time reliability, and when readiness scores should not veto your training plan.">
+  <meta property="og:description" content="Wearable sleep vs PSG limits, brand disagreements, and a decision rule for using duration trends — not stage pie charts.">
   <meta property="og:url" content="https://pacewod.com/blog/running/sleep-tracker-accuracy-guide.html">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Sleep Tracker Accuracy: Garmin, Apple Watch, COROS, WHOOP, and Oura Compared">
-  <meta name="twitter:description" content="What Garmin, Apple, COROS, WHOOP, and Oura get right about sleep — and where stage scores mislead runners.">
+  <meta name="twitter:description" content="Worked example of two watches disagreeing on deep sleep — and which number to train with.">
   <link rel="stylesheet" href="../../style.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Sleep Tracker Accuracy: Garmin, Apple Watch, COROS, WHOOP, and Oura Compared",
-    "description": "How accurate are Garmin, Apple Watch, COROS, WHOOP, and Oura sleep trackers vs PSG? Stage detection limits, total sleep time reliability, and when scores mislead training.",
+    "description": "Sleep tracker accuracy for runners with PSG limits, a worked brand-disagreement example, and a training decision rule.",
     "author": { "@type": "Organization", "name": "PaceWOD" },
     "publisher": { "@type": "Organization", "name": "PaceWOD", "url": "https://pacewod.com/" },
     "datePublished": "2026-08-12",
-    "dateModified": "2026-08-13",
+    "dateModified": "2026-08-17",
     "mainEntityOfPage": "https://pacewod.com/blog/running/sleep-tracker-accuracy-guide.html"
   }
   </script>
@@ -65,42 +65,34 @@
       <article class="blog-content">
         <div class="page-header">
           <span class="tag">Recovery</span>
-          <h1>Sleep Tracker Accuracy: Garmin, Apple Watch, COROS, WHOOP, and Oura Compared</h1>
-          <p class="blog-meta">Updated August 2026 · 4 min read</p>
+          <h1>Sleep Tracker Accuracy: What Watches Get Right (and What They Invent)</h1>
+          <p class="blog-meta">Updated August 2026 · 5 min read</p>
         </div>
 
-        <p>Consumer trackers estimate sleep; polysomnography (PSG) measures it. Against PSG, total sleep time is usually the strongest signal; stage labels (light/deep/REM) misclassify often. Use devices for trends and behavior change — not nightly courtroom verdicts. Related: <a href="sleep-and-running-performance.html">sleep and running</a>, <a href="hrv-for-runners-guide.html">HRV for runners</a>, <a href="resting-heart-rate-and-recovery.html">resting HR</a>.</p>
+        <p>Garmin says 1 h 40 m deep sleep; Oura says 48 minutes; you feel identical either way. That conflict is algorithm theater: consumer wearables estimate sleep from motion, HR, and HRV. They are not polysomnography (PSG), and stage labels are the weakest part of the report.</p>
 
-        <h2>Key Points</h2>
-        <ul>
-          <li><strong>Trust most:</strong> time asleep / time in bed consistency week to week</li>
-          <li><strong>Trust less:</strong> exact stage minutes and proprietary “sleep scores”</li>
-          <li><strong>Garmin:</strong> Sleep Score + overnight HRV Status; strong for duration trends; stages are estimates</li>
-          <li><strong>Apple Watch:</strong> strong for schedule/logging; stages not PSG-grade; charging can cut overnight samples on non-Ultra</li>
-          <li><strong>COROS:</strong> duration/quality feeding recovery/load models; less sleep-score theater</li>
-          <li><strong>WHOOP / Oura:</strong> recovery-first scoring (HRV-heavy); Oura’s ring can reduce wrist motion noise</li>
-          <li>Individual night error of tens of minutes on total sleep is normal versus PSG</li>
-        </ul>
+        <h2>What Is Usually Good Enough</h2>
+        <p>Total sleep time and bedtime consistency are the most useful fields for runners. Overnight HR and HRV trends can add context for recovery decisions when paired with how easy runs feel. Stage breakdowns (light/deep/REM) often disagree across brands and versus PSG — fine for curiosity, poor as a reason to cancel intervals. Related performance framing: <a href="sleep-and-running-performance.html">sleep and running performance</a>.</p>
+
+        <h2>Worked Scenario: Two Devices, One Night</h2>
+        <p>You wear a watch and a ring. Both agree you were in bed 11:00–6:30 and asleep roughly 6 h 50 m–7 h 10 m. Deep sleep: Device A 1:35, Device B 0:55. REM similarly mismatched. Training decision: use ~7 hours total and how you feel on the warm-up — ignore the deep-sleep argument. If total sleep was 5 h 20 m on both devices for three nights, that aligned duration signal is actionable even if stages disagree.</p>
 
         <h2>When Scores Mislead Training</h2>
         <ul>
-          <li>One low score after late caffeine or alcohol → don’t auto-skip intervals</li>
-          <li>High score but legs trashed → trust the warm-up</li>
-          <li>Comparing your Oura score to a partner’s Garmin score → meaningless across algorithms</li>
-          <li>Travel nights and unusual bedtimes often confuse staging more than duration</li>
+          <li>Charging gaps create “short sleep” artifacts</li>
+          <li>Alcohol can fragment sleep while some scores look oddly “calm”</li>
+          <li>Travel and late screens scramble timing without proving overtraining</li>
+          <li>Firmware updates can shift baselines overnight</li>
         </ul>
-        <p><strong>Two-week audit:</strong> log bedtime, wake time, caffeine/alcohol, and next-day easy RPE. Keep the brand that matches how you feel and that you’ll wear overnight. Switch devices mid-block only if you accept a new baseline.</p>
+        <p>If two brands disagree, pick the one you will wear consistently and stop cross-checking stage charts. Coaching needs a stable baseline more than a winner algorithm.</p>
 
-                <p>If two brands disagree, pick the one you’ll wear overnight and stop cross-checking scores. Coaching decisions need a stable baseline more than a “winner” algorithm.</p>
+        <div class="expert-note">
+          <strong>Expert Note</strong>
+          <p>Validation studies generally find wearable total sleep time closer to PSG than stage classification — but “closer” is not “equal.” Proprietary scores (readiness, body battery) mix inputs you cannot fully audit. None of this diagnoses sleep disorders. Loud snoring, witnessed apneas, or overwhelming daytime sleepiness belong in a clinic, not a blog comment section.</p>
+        </div>
 
-        <h2>Practical Takeaway</h2>
-        <p>Pick one wearable, wear it consistently, and manage duration. Stage charts are entertainment; 7-night sleep averages and resting HR/HRV trends are coaching data. Focus coaching changes on multi-night averages, not a single dramatic stage chart.</p>
-
-        <h2>FAQ</h2>
-        <h3>Which brand is “most accurate”?</h3>
-        <p>For runners, the best device is the one you wear every night with a stable baseline. Differences in stage algorithms matter less than missing nights.</p>
-        <h3>Should I buy a ring and a watch?</h3>
-        <p>Usually no. Dual devices create conflicting scores. One consistent overnight signal plus how you feel on the run is enough.</p>
+        <h2>Training Decision Rule</h2>
+        <p>Change training from <strong>multi-night duration trends + daytime function</strong> (RHR, mood, easy-run RPE). Do not change training from a single stage pie chart or a one-off score dip when total sleep and legs are fine. For race week, prioritize time in bed over optimizing “deep sleep” percentages.</p>
       </article>
 
 

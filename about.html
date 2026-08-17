@@ -25,11 +25,22 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "PaceWOD",
-    "url": "https://pacewod.com/",
-    "description": "Free pace calculators, heart rate tools, and WOD generators for runners and CrossFit athletes.",
-    "sameAs": []
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://pacewod.com/#organization",
+        "name": "PaceWOD",
+        "url": "https://pacewod.com/",
+        "description": "Free pace calculators, heart rate tools, and WOD generators for runners and CrossFit athletes."
+      },
+      {
+        "@type": "Person",
+        "@id": "https://pacewod.com/#editor",
+        "name": "PaceWOD maintainer",
+        "description": "Independent endurance athlete with an engineering background who builds and edits PaceWOD. Trains with Garmin and COROS data, runs structured 5K–half marathon blocks, and completes CrossFit-style conditioning. Not presented as a licensed coach, physician, or dietitian.",
+        "worksFor": { "@id": "https://pacewod.com/#organization" }
+      }
+    ]
   }
   </script>
 </head>
@@ -65,8 +76,16 @@
         <p>PaceWOD is a free resource for runners and CrossFit athletes. We build practical tools and training guides that help you train smarter — whether you're calculating race pace, finding your zone 2 heart rate, or generating a daily workout.</p>
 
         <h2>Who Runs PaceWOD</h2>
-        <p>PaceWOD is built and maintained by an independent endurance athlete with an engineering background — someone who trains with Garmin and COROS data daily, runs structured blocks from 5K to half marathon, and does CrossFit-style conditioning work. The site exists to share the same calculators and decision frameworks used in real training logs, not generic fitness listicles.</p>
+        <p><strong>Organization:</strong> PaceWOD is an independent publishing site (pacewod.com) that owns and maintains the calculators, workout library, and blog.</p>
+        <p><strong>Person:</strong> Content and tools are built and maintained by an independent endurance athlete with an engineering background — someone who trains with Garmin and COROS data daily, runs structured blocks from 5K to half marathon, and does CrossFit-style conditioning. We do not claim coaching certifications, medical degrees, or lab affiliations we do not have. The site exists to share the same calculators and decision frameworks used in real training logs, not generic fitness listicles.</p>
         <p>Every tool runs in your browser with no account required. Every guide explains the formula or method behind the number, when to trust your watch, and when to question it.</p>
+
+        <h2>Who This Is For (and Not For)</h2>
+        <p><strong>For:</strong> recreational to competitive runners who use a GPS watch; CrossFit athletes who also run or need pacing frameworks for metcons; data-curious athletes who want to know why two numbers disagree.</p>
+        <p><strong>Not for:</strong> personalized coaching, injury diagnosis, medical or nutrition prescriptions, or Open/Games peaking plans written for your exact profile. If you need individual programming or clinical advice, work with a qualified coach or clinician — our guides are educational decision aids.</p>
+
+        <h2>Tools + Guides Closed Loop</h2>
+        <p>PaceWOD is designed as a loop, not a pile of pages. Calculators produce the numbers (paces, zones, predicted times, calorie ranges, WOD formats). Guides explain when those numbers hold, when wearables disagree, and what to do next. The <a href="workouts/recommended-wods.html">Workout Library</a> and <a href="tools/wod-generator.html">WOD Generator</a> turn the frameworks into sessions you can actually run. When an article cites a method (Riegel, Karvonen, Daniels, MET), it links back to the tool that implements it.</p>
 
         <h2>How Content Is Created</h2>
         <p>Articles start from a real training problem — HR drift on easy runs, Garmin VO2 lagging race fitness, a race predictor overshooting marathon time — then work backward to the physiology and math. When we cite Riegel, Karvonen, Daniels, or MET values, we also state the assumption that breaks the model (downhill races, heat, wrist HR lag, low running economy).</p>
@@ -76,21 +95,20 @@
         <ul>
           <li><strong>Running calculators</strong> — Pace, race prediction, VO2 max estimation, calorie burn, and heart rate zones</li>
           <li><strong>CrossFit tools</strong> — Random WOD generator for AMRAP, EMOM, For Time, and Chipper formats</li>
-          <li><strong>Training guides</strong> — Structured plans for 5K, 10K, and half marathon, plus in-depth articles on easy runs, tempo, long runs, recovery, and more</li>
+          <li><strong>Training guides</strong> — Structured plans for 5K, 10K, and half marathon, plus in-depth articles on easy runs, tempo, long runs, recovery, and CrossFit pacing</li>
         </ul>
 
-        <h2>Our Mission</h2>
-        <p>Quality training tools shouldn't be locked behind paywalls or buried in apps with subscriptions. PaceWOD exists to give every athlete — from first-time 5K runners to experienced CrossFit competitors — fast, accurate, browser-based tools they can use anywhere.</p>
+        <h2>Editorial Standards</h2>
+        <p>Our guides are educational. They are based on widely accepted coaching principles — polarized training, Riegel race prediction, Karvonen heart rate zones, Daniels VDOT, MET estimates, and standard CrossFit formats. We cite method limitations (wearable lag, formula assumptions, individual variation) so you can make informed decisions.</p>
+        <p><strong>How we verify claims:</strong> Prefer established formulas and publicly documented methods over anecdotes. Cross-check calculator outputs against worked examples in the matching guide. Flag wearable estimates as ranges with known error bars, not ground truth. We do not invent percentage improvements, “clinical studies we ran,” or credentials.</p>
+        <p><strong>Update cadence:</strong> Core tool pages and high-traffic guides are reviewed when device algorithms, formula conventions, or best-practice consensus change — and at least on a periodic pass (articles show an Updated date in the header; JSON-LD <code>dateModified</code> tracks the same). Corrections from readers are welcome via the <a href="contact.html">Contact page</a>.</p>
+        <p>This is not personalized coaching or medical advice. Always listen to your body and consult a qualified professional for health or injury concerns. See our <a href="terms-of-service.html">Terms of Service</a> for the full disclaimer.</p>
 
         <h2>How Our Tools Work</h2>
         <p>All calculations run locally in your browser. We don't store your personal training data on our servers. Enter your numbers, get your results, and keep training.</p>
 
-        <h2>Editorial Standards</h2>
-        <p>Our training guides and workout templates are written for educational purposes. They are based on widely accepted coaching principles — polarized training, Riegel race prediction, Karvonen heart rate zones, Daniels VDOT, and standard CrossFit workout formats. We cite method limitations (wearable lag, formula assumptions, individual variation) so you can make informed decisions.</p>
-        <p>Content is reviewed for accuracy and updated when device algorithms or best practices change. This is not personalized coaching or medical advice. Always listen to your body and consult a qualified professional for health or injury concerns. See our <a href="terms-of-service.html">Terms of Service</a> for the full disclaimer.</p>
-
         <h2>How We Make Money</h2>
-        <p>PaceWOD is supported by display advertising through Google AdSense. Ads help keep all calculators and guides free. We do not sell user training data — calculator inputs stay in your browser and are not stored on our servers.</p>
+        <p>PaceWOD is supported by display advertising through Google AdSense. Ads help keep all calculators and guides free. Advertising does not change calculator formulas or editorial conclusions. We do not sell user training data — calculator inputs stay in your browser and are not stored on our servers. See our <a href="privacy-policy.html">Privacy Policy</a> for details.</p>
 
         <h2>Get in Touch</h2>
         <p>Questions, feedback, or corrections? We'd love to hear from you. Visit our <a href="contact.html">Contact page</a>.</p>
